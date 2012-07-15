@@ -9,8 +9,8 @@ public class SpaceContact implements ContactListener {
 		BodyFixture body_a = (BodyFixture)(arg0.getFixtureA().getUserData());
 		BodyFixture body_b = (BodyFixture)(arg0.getFixtureB().getUserData());
 		
-		body_a.register_contact_begin(body_b);
-		body_b.register_contact_begin(body_a);
+	//	body_a.register_contact_begin(body_b);
+	//	body_b.register_contact_begin(body_a);
 	}
 
 	@Override

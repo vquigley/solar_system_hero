@@ -9,7 +9,7 @@ public class Lazer extends WeaponFire {
 	
 	@Override
 	public void update() {
-		body.setAngularVelocity(500f);
-	}
-	
+		body.setLinearVelocity(get_force(10f));
+		super.update();
+	}	
 }

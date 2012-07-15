@@ -28,7 +28,7 @@ public class Planet extends OrbitingObject {
 		BodyDef bd = new BodyDef();
 		bd.position.set(start_coordinates);
 		bd.angle = Global.to_radians(start_direction);
-		bd.type = BodyDef.BodyType.DynamicBody;
+		bd.type = BodyDef.BodyType.StaticBody;
 		
 		return bd;
 	}

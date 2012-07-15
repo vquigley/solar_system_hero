@@ -13,8 +13,8 @@ public class LazerBank extends Weapon {
 	}
 
 	@Override
-	public void fire() {
-		fire(new Lazer(this));
+	protected WeaponFire get_weapon_fire() {
+		return new Lazer(this);
 	}
 
 	@Override

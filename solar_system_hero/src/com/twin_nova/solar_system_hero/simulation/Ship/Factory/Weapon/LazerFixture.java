@@ -1,8 +1,8 @@
 package com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.twin_nova.solar_system_hero.simulation.BodyFixture;
 import com.twin_nova.solar_system_hero.simulation.SpaceBody;
 import com.twin_nova.utilities.Global;
@@ -21,10 +21,13 @@ public class LazerFixture extends BodyFixture {
 
 	@Override
 	public FixtureDef get_fixture_def() {
-		CircleShape shape = new CircleShape();
-		shape.setRadius(Global.to_meters(sprite.getHeight() / 2));
+		PolygonShape shape = new PolygonShape();
+		shape.setAsBox(Global.to_meters(get_sprite().getWidth()), 
+					   Global.to_meters(get_sprite().getHeight()), 
+					   get_body_offset(),
+					   get_angle());
 		
-		fixture_def = new FixtureDef();
+		FixtureDef fixture_def = new FixtureDef();
 		fixture_def.shape = shape;
 		fixture_def.density = Global.density(part_mass, fixture_def.shape.getRadius());
 		fixture_def.friction = friction;
@@ -38,10 +41,9 @@ public class LazerFixture extends BodyFixture {
 		return part_mass;
 	}
 	
-	private static FixtureDef fixture_def = null;
-	private static final float friction = 0.5f;
-	private static final float restitution = 0.2f;
-	private static float part_mass = 0.0f;
+	private static final float friction = 0.0f;
+	private static final float restitution = 0.0f;
+	private static float part_mass = 0f;
 	
 	@Override
 	public int get_contact_damage() {

@@ -11,11 +11,19 @@ public abstract class SpaceBody {
 	protected Body body;
 	
 	protected abstract BodyDef get_body_definition(Vector2 start_coordinates, float start_direction);
-	public abstract void update();
 	
 	protected SpaceBody(Vector2 start_coordinates, float start_direction) {
 		BodyDef bd = get_body_definition(start_coordinates, start_direction);
 		body = Space.World().createBody(bd);
+	}
+	
+	public void update() {
+		Iterator<Fixture> f_it = body.getFixtureList().iterator();
+		
+		while (f_it.hasNext()) {
+			Fixture f = f_it.next();
+			((BodyFixture)f.getUserData()).update();
+		}
 	}
 	
 	public void render() {
@@ -33,6 +41,16 @@ public abstract class SpaceBody {
 	
 	public void destroy() {
 		Space.World().destroyBody(this.body);
+	}
+	
+	public Vector2 get_force(float angular_force) {
+		Vector2 force = new Vector2();
+		
+		// Use trigonometry to determine the x and y from the angular force.
+		force.x = (float)Math.cos((double)body.getAngle()) * angular_force;
+		force.y = (float)Math.sin((double)body.getAngle()) * angular_force;
+		
+		return force;
 	}
 	
 	public float get_speed() {

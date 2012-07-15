@@ -17,7 +17,7 @@ public class StarFixture extends BodyFixture {
 
 	@Override
 	public int get_health() {
-		return INSTANT_DEATH;
+		return INFINITE_HEALTH;
 	}
 
 	@Override
@@ -36,6 +36,10 @@ public class StarFixture extends BodyFixture {
 
 	@Override
 	protected float get_mass() {
-		return 0;
+		return 1;
+	}
+	
+	public void update() {
+		super.update();
 	}
 }

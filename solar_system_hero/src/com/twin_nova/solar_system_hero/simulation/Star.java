@@ -13,16 +13,12 @@ public class Star extends SpaceBody{
 
 	@Override
 	protected BodyDef get_body_definition(Vector2 start_coordinates,
-			float start_direction) {
+										  float start_direction) {
 		BodyDef bd = new BodyDef();
 		bd.position.set(start_coordinates);
 		bd.angle = Global.to_radians(start_direction);
-		bd.type = BodyDef.BodyType.DynamicBody;
+		bd.type = BodyDef.BodyType.StaticBody;
 		
 		return bd;
-	}
-
-	@Override
-	public void update() {
 	}
 }

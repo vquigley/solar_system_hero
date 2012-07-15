@@ -110,6 +110,7 @@ public class Space {
 		nuke();
 		world.step(Global.step_delta(), 6, 3);
 		
+		sun.update();
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
 			// Reset.

@@ -54,6 +54,8 @@ public class OrbitingObject extends SpaceBody {
 		int next_position = (int)((orbit_points.length - 1) * (time_of_current_revolution / (Space.earth_year * 1000)));
 
 		body.setTransform(orbit_points[next_position], 0);
+		
+		super.update();
 	}
 	
 	@Override
