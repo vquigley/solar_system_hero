@@ -3,12 +3,14 @@ package com.twin_nova.solar_system_hero.simulation.Ship.Factory.Hero;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
+import com.twin_nova.solar_system_hero.simulation.Space;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.IShipControl;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipPart;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.Weapon;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.LazerBank;
 import com.twin_nova.utilities.Console;
+import com.twin_nova.utilities.Global;
 
 public class Hero extends Ship {
 
@@ -22,7 +24,8 @@ public class Hero extends Ship {
 
 	@Override
 	public ShipPart build_cockpit() {
-		return new HeroCockpit(this, new Vector2(0,0));
+		ShipPart part = new HeroCockpit(this, new Vector2(0,0));
+		return part;
 	}
 
 	@Override
@@ -32,7 +35,13 @@ public class Hero extends Ship {
 
 	@Override
 	public ArrayList<Weapon> build_weapons() {
-		weapons_a.add(new LazerBank(this, new Vector2(1,1), 0));
+		weapons_a.add(new LazerBank(this, new Vector2(Global.to_meters(40),Global.to_meters(10)), 0));
+		weapons_a.add(new LazerBank(this, new Vector2(Global.to_meters(40),Global.to_meters(-10)), 0));
+		
+		for (Weapon weapon : weapons_a) {
+			weapon.get_fixture().getFilterData().categoryBits = get_weapon_category();
+			weapon.get_fixture().getFilterData().maskBits = get_weapon_mask();
+		} 
 		
 		return weapons_a;
 	}
@@ -56,5 +65,15 @@ public class Hero extends Ship {
 		super.update();
 		Console.write_line("Body X pos", body.getPosition().x);
 		Console.write_line("Body Y pos", body.getPosition().y);
+	}
+	
+	@Override
+	public short get_weapon_mask() {
+		return Space.enemy_weapon_mask;
+	}
+	
+	@Override
+	public short get_weapon_category() {
+		return Space.player_category;
 	}
 }

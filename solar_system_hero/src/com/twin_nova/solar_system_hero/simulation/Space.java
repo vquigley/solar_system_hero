@@ -17,7 +17,13 @@ import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipBuilder;
 import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
 
-public class Space {
+public class Space {	
+	public static short player_category = 1;
+	public static short enemy_category = 2;
+
+	public static short enemy_weapon_mask = player_category;
+	public static short player_weapon_mask = enemy_category;
+	
 	// All solar system masses are defined in terms of earth masses, which is defined as kgs.
 	public static final float earth_mass 		= 1000;
 	public static final float earth_year		= 30; // 1 minutes.
@@ -25,6 +31,7 @@ public class Space {
 	public static final float half_size_y = 50f;
 	private static Sprite[] stars = null;
 	SpaceContact contact_listener = new SpaceContact();
+	ContactFilter contact_filter = new ContactFilter();
 	public static ArrayList<SpaceBody> nuke_list = new ArrayList<SpaceBody>();
 	public static Date begin_date = new Date();
 	public static Date space_date = new Date();
@@ -103,6 +110,7 @@ public class Space {
 		ships.add(player);
 		
 		world.setContactListener(contact_listener);
+		world.setContactFilter(contact_filter);
 	}
 	
 	public void update() {

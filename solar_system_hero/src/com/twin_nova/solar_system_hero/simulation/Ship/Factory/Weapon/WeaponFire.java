@@ -3,10 +3,12 @@ package com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.twin_nova.solar_system_hero.simulation.SpaceBody;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 
 public abstract class WeaponFire extends SpaceBody {
 	protected WeaponFire(Weapon owner) {
-		super(owner.get_world_position().add(2, 2), owner.get_angle());
+		super(owner.get_world_center(), owner.get_angle());
+		this.owner = owner;
 	}
 
 	@Override
@@ -18,4 +20,14 @@ public abstract class WeaponFire extends SpaceBody {
 		
 		return bd;
 	}
+	
+	public Weapon get_firing_weapon() {
+		return owner;
+	}
+	
+	public Ship get_firing_ship() {
+		return (Ship)get_firing_weapon().getOwner();
+	}
+	
+	private Weapon owner = null;
 }

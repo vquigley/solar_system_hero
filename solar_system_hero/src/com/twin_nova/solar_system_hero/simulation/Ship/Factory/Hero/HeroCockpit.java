@@ -3,6 +3,8 @@ package com.twin_nova.solar_system_hero.simulation.Ship.Factory.Hero;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Transform;
+import com.twin_nova.solar_system_hero.simulation.Space;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipPart;
 import com.twin_nova.utilities.Console;
@@ -49,7 +51,7 @@ public class HeroCockpit extends ShipPart {
 	
 	public void update() {
 		super.update();
-		Console.write_line("Fixture X pos", get_world_position().x);
-		Console.write_line("Fixture Y pos", get_world_position().y);
+		Console.write_line("Fixture X pos", get_world_center().x);
+		Console.write_line("Fixture Y pos", get_world_center().y);
 	}
 }

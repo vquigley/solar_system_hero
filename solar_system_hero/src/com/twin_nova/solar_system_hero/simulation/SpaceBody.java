@@ -62,4 +62,12 @@ public abstract class SpaceBody {
 		
 		return c;
 	}
+	
+	public short get_weapon_mask() {
+		return Space.player_weapon_mask;
+	}
+	
+	public short get_weapon_category() {
+		return Space.enemy_category;
+	}
 }

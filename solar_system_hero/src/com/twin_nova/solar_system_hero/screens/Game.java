@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.twin_nova.solar_system_hero.simulation.Space;
-import com.twin_nova.utilities.Console;
 import com.twin_nova.utilities.Global;
 
 public class Game implements Screen {
@@ -67,12 +66,15 @@ public class Game implements Screen {
 		space.render_meshes();
 		
 		// Follow the player.
-		o_cam.position.set(Global.to_pixels(Space.player().get_body().getPosition().x), 
-						   Global.to_pixels(Space.player().get_body().getPosition().y), 
-						   0);
-		o_cam.zoom = 2.5f;
 		
-		if (debug_camera != null)
+		
+		if (debug_camera == null)
+		{
+			o_cam.position.set(Global.to_pixels(Space.player().get_body().getPosition().x), 
+					   Global.to_pixels(Space.player().get_body().getPosition().y), 
+					   0);
+		}
+		else
 		{
 			debug_camera.update();
 			//debug_camera.position.set(Space.player().get_body().getPosition().x, 
@@ -81,6 +83,8 @@ public class Game implements Screen {
 			debug_camera.zoom = 0.05f;
 		    debug_renderer.render( Space.World(), debug_camera.combined );
 		}
+		
+		o_cam.zoom = 2.5f;
 
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.O))

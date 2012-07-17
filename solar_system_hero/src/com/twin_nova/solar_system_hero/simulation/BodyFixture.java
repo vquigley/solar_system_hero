@@ -2,7 +2,9 @@ package com.twin_nova.solar_system_hero.simulation;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Transform;
 import com.twin_nova.solar_system_hero.screens.Game;
 import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
@@ -13,23 +15,32 @@ public abstract class BodyFixture {
 						  Texture texture,
 						  Vector2 body_offset, 
 						  float angle_offset) {
-		this.owner = owner;
+		this.setOwner(owner);
 		this.body_offset = body_offset;
 		this.angle_offset = angle_offset;
 		current_health = get_health();
 		sprite = new Sprite(Global.textures.get(texture));
-		owner.get_body().createFixture(get_fixture_def()).setUserData(this);
+		FixtureDef fixture_def = get_fixture_def();
+		fixture_def.filter.categoryBits = owner.get_weapon_category();
+		fixture_def.filter.maskBits = owner.get_weapon_mask();
+		set_fixture(owner.get_body().createFixture(fixture_def));
+		get_fixture().setUserData(this);
 	}
 	
-	public Vector2 get_world_position() {
-		float position_x_meters = (owner.body.getPosition().x + body_offset.x) - Global.to_meters(get_sprite().getWidth() / 2);
-		float position_y_meters = (owner.body.getPosition().y + body_offset.y) - Global.to_meters(get_sprite().getHeight() / 2);
+	public Vector2 get_world_center() {
+		Vector2 world_position = body_offset.cpy();
+
+		Transform transform = getOwner().body.getTransform();
+		transform.mul(world_position);
 		
-		return new Vector2(position_x_meters, position_y_meters);
+		world_position.x -=  Global.to_meters(get_sprite().getWidth() / 2);
+		world_position.y -=  Global.to_meters(get_sprite().getHeight() / 2);
+	
+		return world_position;
 	}
 	
 	public float get_angle() {
-		return owner.body.getAngle() + angle_offset;
+		return getOwner().body.getAngle() + angle_offset;
 	}
 	
 	public Vector2 get_body_offset() {
@@ -37,12 +48,14 @@ public abstract class BodyFixture {
 	}
 	
 	public void update() {
-		Vector2 world_position = get_world_position();
+		Vector2 world_position = get_world_center();
 		
 		get_sprite().setPosition(Global.to_pixels(world_position.x), 
 								 Global.to_pixels(world_position.y));
 		get_sprite().setRotation(Global.to_degrees(get_angle()) - 90);
 	}
+	
+	
 	
 	public void render() {
 		get_sprite().draw(Game.batch);
@@ -66,7 +79,7 @@ public abstract class BodyFixture {
 	
 	// Not right, need to involve speed of object being contacted.
 	protected int get_contact_damage() {
-		return (int)(get_mass() * owner.get_speed());
+		return (int)(get_mass() * getOwner().get_speed());
 	}
 	
 	protected Sprite get_sprite() {
@@ -86,4 +99,32 @@ public abstract class BodyFixture {
 	protected Integer INSTANT_DEATH = Integer.MAX_VALUE;
 	
 	private Integer current_health;
+	
+	private Fixture fixture = null;
+	
+	public boolean colides_with(BodyFixture bodyFixture) {
+		return true;		
+	}
+
+	public SpaceBody getOwner() {
+		return owner;
+	}
+
+	public void setOwner(SpaceBody owner) {
+		this.owner = owner;
+	}
+	
+	/**
+	 * @return the fixture
+	 */
+	public Fixture get_fixture() {
+		return fixture;
+	}
+
+	/**
+	 * @param fixture the fixture to set
+	 */
+	public void set_fixture(Fixture fixture) {
+		this.fixture = fixture;
+	}	
 }

@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.twin_nova.solar_system_hero.simulation.BodyFixture;
 import com.twin_nova.solar_system_hero.simulation.SpaceBody;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
+import com.twin_nova.utilities.Console;
 import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
 
@@ -48,5 +50,12 @@ public class LazerFixture extends BodyFixture {
 	@Override
 	public int get_contact_damage() {
 		return 10;
+	}
+	
+	public boolean colides_with(BodyFixture bodyFixture) {
+		// Do not let a lazer collide with it's lazer bank.
+		Ship firing_ship = ((WeaponFire)getOwner()).get_firing_ship();
+		SpaceBody incoming_object = bodyFixture.getOwner();
+		return (firing_ship != incoming_object);		
 	}
 }

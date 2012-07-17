@@ -5,11 +5,13 @@ http://www.solarsystemscope.com/ is an excellent view of the solar system, if I 
 
 User stories for arcade version...
 
- - Lazer should not affect owning ship.
+ - Fix gravity well (see about using sensors)
+ - Fix space boundary
  - Start Game Screen
- - Destroy ship
  - End Game Screen
+ - Destroy ship
  - Lazer energy meter.
+ - More precise box2D vectors on sprites
  - More intelligent autopilot
  - Add enemy 1
  - AI...good luck.
@@ -59,3 +61,4 @@ User stories for arcade version...
  - [Done] Listener class for destroying objects.
  - [Done] Collision detection with lazers.
  - [Done] Planets kill ship
+ - [Done] Lazer should not affect owning ship.
