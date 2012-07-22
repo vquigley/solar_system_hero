@@ -63,11 +63,11 @@ public class Hero extends Ship {
 	
 	@Override
 	public short get_weapon_mask() {
-		return Space.enemy_weapon_mask;
+		return Space.instance().enemy_weapon_mask;
 	}
 	
 	@Override
 	public short get_weapon_category() {
-		return Space.player_category;
+		return Space.instance().player_category;
 	}
 }

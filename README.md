@@ -5,37 +5,33 @@ http://www.solarsystemscope.com/ is an excellent view of the solar system, if I 
 
 User stories for arcade version...
 
- - [Bug] Fix space boundary
- - Start Game Screen
- - End Game Screen
  - Destroy ship
- - Lazer energy meter.
- - More precise box2D vectors on sprites
  - More intelligent autopilot
  - Add enemy 1
  - AI...good luck.
+ - Lazer energy meter.
+ - More precise box2D vectors on sprites
+ - [Bug] issue when moving from end game to main menu, the touch is still registered when rendering main menu.
+ - [Bug] weapon fixtures cause destruction of ship but cockpit doesn't.
  - Damage scales.
- - UNiform max speed, currently seems you can go noticibly faster diagonally.
+ - [Bug] Uniform max speed, currently seems you can go noticibly faster diagonally.
  - More planets
  - Moons
  - Thruster animation
- - Mesh for ships
  - Sun gravity.
  - Sun thermal damage.
- - Duo lazor beams
+  - Add asteroids 
+ - Add asteroid belt
  - Missiles.
+ - Grappling hook.
  - Scores.
  - Add asteroids
  - Reduce binary size
- - Mesh for asteriods.
  - Put boundary code into factory.
  - Animate border
  - Proper UI text.
- - Add asteroid belt
  - Straft
- - Astrooids
- - Grappling hook.
- - Add configuration for waves of enemies.
+ - Add configuration for waves of enemies and conversation with Command.
  - Add enemy 2
  - Add enemy 3
  - Add enemy 4
@@ -66,3 +62,6 @@ User stories for arcade version...
  - [Done] Lazer should not affect owning ship.
  - [Done] [Bug] Fix lazer disappearing on contact
  - [Done] [Bug] Fix gravity well (see about using sensors)
+ - [Done] [Bug] Fix space boundary
+ - [Done] Start Game Screen
+ - [Done] End Game Screen

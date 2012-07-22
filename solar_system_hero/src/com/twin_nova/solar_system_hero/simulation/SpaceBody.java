@@ -14,7 +14,7 @@ public abstract class SpaceBody {
 	
 	protected SpaceBody(Vector2 start_coordinates, float start_direction) {
 		BodyDef bd = get_body_definition(start_coordinates, start_direction);
-		body = Space.World().createBody(bd);
+		body = Space.instance().World().createBody(bd);
 	}
 	
 	public void update() {
@@ -40,7 +40,7 @@ public abstract class SpaceBody {
 	}
 	
 	public void destroy() {
-		Space.World().destroyBody(this.body);
+		Space.instance().World().destroyBody(this.body);
 	}
 	
 	public Vector2 get_force(float angular_force) {
@@ -64,10 +64,10 @@ public abstract class SpaceBody {
 	}
 	
 	public short get_weapon_mask() {
-		return Space.player_weapon_mask;
+		return Space.instance().player_weapon_mask;
 	}
 	
 	public short get_weapon_category() {
-		return Space.enemy_category;
+		return Space.instance().enemy_category;
 	}
 }

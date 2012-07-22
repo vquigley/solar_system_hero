@@ -8,8 +8,8 @@ import com.twin_nova.utilities.MeshFactory;
 import com.badlogic.gdx.math.*;
 
 public class Boundary {
-	private float SPACE_BOUNDARY_X = Global.to_pixels(Space.half_size_x);
-	private float SPACE_BOUNDARY_Y = Global.to_pixels(Space.half_size_y);
+	private float SPACE_BOUNDARY_X = Global.to_pixels(Space.instance().half_size_x);
+	private float SPACE_BOUNDARY_Y = Global.to_pixels(Space.instance().half_size_y);
 	private float BOUNDARY_SIZE = Global.to_pixels(5f);
 	//  Boundary, made up of four meshes.
 	//p1  ___________________ p2

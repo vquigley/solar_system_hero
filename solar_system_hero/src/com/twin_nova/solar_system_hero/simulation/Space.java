@@ -18,48 +18,59 @@ import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
 
 public class Space {	
-	public static short player_category = 1;
-	public static short enemy_category = 2;
+	private World world = new World(new Vector2(0, 0), false);
+	public short player_category = 1;
+	public short enemy_category = 2;
 
-	public static short enemy_weapon_mask = player_category;
-	public static short player_weapon_mask = enemy_category;
+	public short enemy_weapon_mask = player_category;
+	public short player_weapon_mask = enemy_category;
 	
 	// All solar system masses are defined in terms of earth masses, which is defined as kgs.
-	public static final float earth_mass 		= 1000;
-	public static final float earth_year		= 30; // 1 minutes.
-	public static final float half_size_x = 50f;
-	public static final float half_size_y = 50f;
-	private static Sprite[] stars = null;
+	public final float earth_mass 		= 1000;
+	public final float earth_year		= 30; // 1 minutes.
+	public final float half_size_x = 50f;
+	public final float half_size_y = 50f;
+	private Sprite[] stars = null;
 	SpaceContact contact_listener = new SpaceContact();
 	ContactFilter contact_filter = new ContactFilter();
-	public static ArrayList<SpaceBody> nuke_list = new ArrayList<SpaceBody>();
-	public static Date begin_date = new Date();
-	public static Date space_date = new Date();
+	public ArrayList<SpaceBody> nuke_list = new ArrayList<SpaceBody>();
+	public Date begin_date = new Date();
+	public Date space_date = new Date();
 	
-	private static World world 					= new World(new Vector2(0, 0), false);
-	private static ArrayList<Planet> planets 	= new ArrayList<Planet>();
-	private static LinkedList<Ship> ships 		= new LinkedList<Ship>();
-	private static Ship player					= ShipBuilder.build_hero(new Vector2(0, 4), 0);
-	private static Star sun 					= new Star();
-	public static Boundary boundary				= new Boundary();
+	private ArrayList<Planet> planets 	= new ArrayList<Planet>();
+	private LinkedList<Ship> ships 		= new LinkedList<Ship>();
+	private Ship player					= null;
+	private static Space self;
+	private Star sun 					= null;
+	public  Boundary boundary				= null;
 	
-	public static World World() {
+	public World World() {
 		return world;
 	}
 
-	public static ArrayList<Planet> planets() {
+	public ArrayList<Planet> planets() {
 		return planets;
 	}
 	
-	public static Star sun() {
+	public Star sun() {
 		return sun;
 	}
 	
-	public static Ship player() {
+	public Ship player() {
 		return player;
 	}
 	
-	public Space() {
+	public static Space init() {
+		self = new Space();
+		return self;
+	}
+	
+	public static Space instance() {
+		return self;
+	}
+	
+	private Space() {
+		self = this;
 		begin_date = new Date();
 		// Create stars.
 		float stars_per_meter = 0.5f;
@@ -106,16 +117,21 @@ public class Space {
 		// Add planets, their position in space is dependent on the system time.
 		planets.add(PlanetBuilder.build_earth());
 		
+		player = ShipBuilder.build_hero(new Vector2(0, 4), 0);
+		
 		// Create controlled ship. It always starts at earth.
 		ships.add(player);
 		
 		world.setContactListener(contact_listener);
 		world.setContactFilter(contact_filter);
+		
+
+		sun 					= new Star();
+		boundary				= new Boundary();
+		
 	}
 	
 	public void update() {
-		space_date = new Date();
-		nuke();
 		world.step(Global.step_delta(), 6, 3);
 		
 		sun.update();
@@ -129,10 +145,12 @@ public class Space {
 			planet.update();
 		}
 		
-		if (boundary.update(player) == false) {
+		if ((player != null) && (boundary.update(player) == false)) {
 			//  Let ship steer itself.
 			player.update();
 		}
+		space_date = new Date();
+		nuke();
 	}
 	
 	private void nuke()
@@ -140,6 +158,11 @@ public class Space {
 		for (int i = nuke_list.size() - 1; i >= 0; --i)
 		{
 			nuke_list.get(i).destroy();
+			
+
+			if (nuke_list.get(i) == player) {
+				player = null;
+			}
 		}
 		
 		nuke_list.clear();
@@ -156,7 +179,9 @@ public class Space {
 		}
 		
 		for (Ship ship : ships) {
-			ship.render();
+			if (ship != null) {
+				ship.render();
+			}
 		}
 		
 		sun.render();
@@ -179,7 +204,13 @@ public class Space {
 		sun.resize(width, height);*/		
 	}
 	
-	public static long get_space_time() {
-		return (space_date.getTime() - begin_date.getTime());
+	public long get_space_time() {
+		long time = (space_date.getTime() - begin_date.getTime());
+		
+		if (time < 0) {
+			time = 0;
+		}
+		
+		return time;
 	}
 }

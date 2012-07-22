@@ -15,7 +15,7 @@ public class GravityWell {
 		
 		Vector2 planet_distance = new Vector2();
 		planet_distance.add(affected_body.get_body().getPosition());
-		planet_distance.sub(Space.player().get_body().getPosition());
+		planet_distance.sub(Space.instance().player().get_body().getPosition());
 		float planet_radius = 0f;
 		float planet_mass = 0f;
 		if (affected_body.get_body().getFixtureList().size() > 0)
@@ -31,7 +31,7 @@ public class GravityWell {
 			planet_distance = planet_distance.nor();
 			float vec_sum = Math.abs(planet_distance.x) + Math.abs(planet_distance.y);
 			planet_distance.mul((1/vec_sum) * planet_radius / final_distance);
-			Space.player().get_body().applyForceToCenter((planet_distance).mul((planet_mass / Space.earth_mass) * 5));
+			Space.instance().player().get_body().applyForceToCenter((planet_distance).mul((planet_mass / Space.instance().earth_mass) * 5));
 		}
 	}
 	

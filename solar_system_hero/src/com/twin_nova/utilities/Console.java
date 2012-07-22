@@ -22,8 +22,8 @@ public class Console {
 	}
 	
 	public static void flush_buffer(SpriteBatch batch) {
-		Vector2 position = new Vector2(Space.player().get_body().getPosition().x - (Gdx.graphics.getWidth() / 2),
-									   Space.player().get_body().getPosition().y + (Gdx.graphics.getHeight() / 2));
+		Vector2 position = new Vector2(Space.instance().player().get_body().getPosition().x - (Gdx.graphics.getWidth() / 2),
+				Space.instance().player().get_body().getPosition().y + (Gdx.graphics.getHeight() / 2));
 		StringBuild sb = new StringBuild(position, buffer.toString());
 		sb.render(batch);
 		buffer.delete(0, buffer.length());

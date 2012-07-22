@@ -27,9 +27,9 @@ public abstract class Weapon extends ShipPart {
 	public void fire()
 	{		
 		if ((last_fired_lazer == null) || 
-			((Space.get_space_time() - last_fired_lazer) >= (1000 / fire_rate()))) {
+			((Space.instance().get_space_time() - last_fired_lazer) >= (1000 / fire_rate()))) {
 			fire_list.add(get_weapon_fire());
-			last_fired_lazer = Space.get_space_time();
+			last_fired_lazer = Space.instance().get_space_time();
 		}
 	}
 	
@@ -44,7 +44,7 @@ public abstract class Weapon extends ShipPart {
 			
 			WeaponFire fire = it.next();
 			
-			if ((nuke_list.contains(fire)) || (Space.boundary.contains(fire) == false)) {
+			if ((nuke_list.contains(fire)) || (Space.instance().boundary.contains(fire) == false)) {
 				it.remove();
 				fire.destroy();
 			}

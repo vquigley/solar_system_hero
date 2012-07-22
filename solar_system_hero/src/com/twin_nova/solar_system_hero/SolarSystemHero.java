@@ -1,6 +1,6 @@
 package com.twin_nova.solar_system_hero;
 
-import com.twin_nova.solar_system_hero.screens.Game;
+import com.twin_nova.solar_system_hero.screens.MainMenu;
 import com.twin_nova.utilities.StringBuild;
 
 public class SolarSystemHero extends com.badlogic.gdx.Game {
@@ -8,7 +8,7 @@ public class SolarSystemHero extends com.badlogic.gdx.Game {
 	@Override
 	public void create() {
 		StringBuild.load_alphabet();
-		setScreen(new Game());
+		setScreen(new MainMenu(this));
 	}
 
 	@Override

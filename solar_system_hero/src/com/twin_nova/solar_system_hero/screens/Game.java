@@ -11,14 +11,17 @@ import com.twin_nova.solar_system_hero.simulation.Space;
 import com.twin_nova.utilities.Global;
 
 public class Game implements Screen {
-	private static Space space 				= new Space();
+	private Space space 				= Space.init();
 	public static SpriteBatch batch 		= new SpriteBatch();
-	private static OrthographicCamera o_cam = new OrthographicCamera(Gdx.graphics.getWidth(), 
+	private OrthographicCamera o_cam = new OrthographicCamera(Gdx.graphics.getWidth(), 
 																	 Gdx.graphics.getHeight());
 	
-	private static OrthographicCamera debug_camera = null;
-	private static Box2DDebugRenderer debug_renderer = new Box2DDebugRenderer( true, true, true, true );
-	public Game() {
+	private OrthographicCamera debug_camera = null;
+	private Box2DDebugRenderer debug_renderer = new Box2DDebugRenderer( true, true, true, true );
+	
+	private com.badlogic.gdx.Game controller = null;
+	
+	public Game(com.badlogic.gdx.Game controller) {
 		batch.setProjectionMatrix(o_cam.combined);
 		batch.getProjectionMatrix().setToOrtho2D(0f, 0f, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		o_cam.update();
@@ -32,6 +35,8 @@ public class Game implements Screen {
 			batch.setProjectionMatrix(debug_camera.combined);
 			debug_camera.update();
 		}
+		
+		this.controller = controller;
 	}
 
 	@Override
@@ -70,9 +75,11 @@ public class Game implements Screen {
 		
 		if (debug_camera == null)
 		{
-			o_cam.position.set(Global.to_pixels(Space.player().get_body().getPosition().x), 
-					   Global.to_pixels(Space.player().get_body().getPosition().y), 
-					   0);
+			if (Space.instance().player() != null) {
+				o_cam.position.set(Global.to_pixels(Space.instance().player().get_body().getPosition().x), 
+						Global.to_pixels(Space.instance().player().get_body().getPosition().y), 
+						0);
+			}
 		}
 		else
 		{
@@ -81,7 +88,7 @@ public class Game implements Screen {
 			//						  Space.player().get_body().getPosition().y, 
 			//						  0);
 			debug_camera.zoom = 0.05f;
-		    debug_renderer.render( Space.World(), debug_camera.combined );
+		    debug_renderer.render( Space.instance().World(), debug_camera.combined );
 		}
 		
 		o_cam.zoom = 2.5f;
@@ -92,6 +99,11 @@ public class Game implements Screen {
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.I))
 			o_cam.zoom -= 0.001;
+		
+
+		if (space.player() == null) {
+			controller.setScreen(new EndGame(controller));
+		}
 	}	
 
 	@Override
