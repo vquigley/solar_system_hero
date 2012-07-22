@@ -62,7 +62,7 @@ public class Space {
 	public Space() {
 		begin_date = new Date();
 		// Create stars.
-		int stars_per_meter = 1;
+		float stars_per_meter = 0.5f;
 		
 		//sprite.setRotation(start_direction);
 		stars = new Sprite[(int)(stars_per_meter * half_size_x * 2 * half_size_y * 2)];

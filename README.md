@@ -18,6 +18,7 @@ User stories for arcade version...
  - Damage scales.
  - UNiform max speed, currently seems you can go noticibly faster diagonally.
  - More planets
+ - Moons
  - Thruster animation
  - Mesh for ships
  - Sun gravity.
@@ -33,6 +34,8 @@ User stories for arcade version...
  - Proper UI text.
  - Add asteroid belt
  - Straft
+ - Astrooids
+ - Grappling hook.
  - Add configuration for waves of enemies.
  - Add enemy 2
  - Add enemy 3
