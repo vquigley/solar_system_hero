@@ -61,12 +61,6 @@ public class Hero extends Ship {
 		
 	}
 	
-	public void update() {
-		super.update();
-		Console.write_line("Body X pos", body.getPosition().x);
-		Console.write_line("Body Y pos", body.getPosition().y);
-	}
-	
 	@Override
 	public short get_weapon_mask() {
 		return Space.enemy_weapon_mask;

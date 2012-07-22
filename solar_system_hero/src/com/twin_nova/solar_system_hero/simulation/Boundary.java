@@ -2,6 +2,7 @@ package com.twin_nova.solar_system_hero.simulation;
 
 import com.badlogic.gdx.graphics.*;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
+import com.twin_nova.utilities.Console;
 import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.MeshFactory;
 import com.badlogic.gdx.math.*;
@@ -93,22 +94,24 @@ public class Boundary {
 		boolean handled = true;
 		
 		// Force a direction on the ship if they have gone beyond the bounds of space.
-		if (ship.get_body().getPosition().x < Global.to_degrees(-SPACE_BOUNDARY_X)) {
+		if (Global.to_pixels(ship.get_body().getPosition().x) < -SPACE_BOUNDARY_X) {
 			ship.force_turn(Global.Dir.Right);
 		}
-		else if (ship.get_body().getPosition().x > Global.to_degrees(SPACE_BOUNDARY_X)) {
+		else if (Global.to_pixels(ship.get_body().getPosition().x) > SPACE_BOUNDARY_X) {
 			ship.force_turn(Global.Dir.Left);
 		}
-		else if (ship.get_body().getPosition().y > Global.to_degrees(SPACE_BOUNDARY_Y)) {
+		else if (Global.to_pixels(ship.get_body().getPosition().y) > SPACE_BOUNDARY_Y) {
 			ship.force_turn(Global.Dir.Down);
 		}
-		else if (ship.get_body().getPosition().y < Global.to_degrees(-SPACE_BOUNDARY_Y)) {
+		else if (Global.to_pixels(ship.get_body().getPosition().y) < -SPACE_BOUNDARY_Y) {
 			ship.force_turn(Global.Dir.Up);
 		}
 		else
 		{
 			handled = false;
 		}
+		
+		Console.write_line("Boundary Controls it", handled);
 		
 		return handled;
 	}

@@ -31,7 +31,7 @@ public class PlanetFixture extends BodyFixture {
 
 		FixtureDef fixture_def = new FixtureDef();
 		fixture_def.shape = shape;
-		fixture_def.density = Global.density(1f, fixture_def.shape.getRadius());
+		fixture_def.density = Global.density(part_mass, fixture_def.shape.getRadius());
 		fixture_def.friction = 1f;
 		fixture_def.restitution = 0f;
 
@@ -46,13 +46,6 @@ public class PlanetFixture extends BodyFixture {
 	@Override
 	public int get_contact_damage() {
 		return INSTANT_DEATH;
-	}
-	
-	public void render() {
-		super.render();
-		Console.write_line("Sprite x", get_sprite().getX());
-		Console.write_line("Sprite y", get_sprite().getY());
-		get_sprite().draw(Game.batch);
 	}
 	
 	private float part_mass;

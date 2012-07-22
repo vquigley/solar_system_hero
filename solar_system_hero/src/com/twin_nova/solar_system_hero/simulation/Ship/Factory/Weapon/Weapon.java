@@ -88,6 +88,10 @@ public abstract class Weapon extends ShipPart {
 		return fixture_def;
 	}
 	
+	public void destroy(WeaponFire fire) {
+		nuke_list.add(fire);
+	}
+	
 	private Long last_fired_lazer = null;
 	private List<WeaponFire> fire_list = new ArrayList<WeaponFire>();
 	public ArrayList<WeaponFire> nuke_list = new ArrayList<WeaponFire>();

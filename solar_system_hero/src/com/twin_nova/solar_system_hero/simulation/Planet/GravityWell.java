@@ -17,19 +17,21 @@ public class GravityWell {
 		planet_distance.add(affected_body.get_body().getPosition());
 		planet_distance.sub(Space.player().get_body().getPosition());
 		float planet_radius = 0f;
+		float planet_mass = 0f;
 		if (affected_body.get_body().getFixtureList().size() > 0)
 		{
 			planet_radius = affected_body.get_body().getFixtureList().get(0).getShape().getRadius();
+			planet_mass = ((PlanetFixture)affected_body.get_body().getFixtureList().get(0).getUserData()).get_mass();
 		}
 		float final_distance = planet_distance.len();
 		
 		if ((planet_radius * 3) > final_distance)
 		{
-			Console.write_line("Gravity");
+			
 			planet_distance = planet_distance.nor();
 			float vec_sum = Math.abs(planet_distance.x) + Math.abs(planet_distance.y);
 			planet_distance.mul((1/vec_sum) * planet_radius / final_distance);
-			Space.player().get_body().applyForceToCenter((planet_distance).mul((affected_body.get_body().getMass() / Space.earth_mass) * 10));
+			Space.player().get_body().applyForceToCenter((planet_distance).mul((planet_mass / Space.earth_mass) * 5));
 		}
 	}
 	

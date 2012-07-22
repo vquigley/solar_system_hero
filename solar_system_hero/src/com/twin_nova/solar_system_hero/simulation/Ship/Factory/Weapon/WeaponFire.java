@@ -29,5 +29,9 @@ public abstract class WeaponFire extends SpaceBody {
 		return (Ship)get_firing_weapon().getOwner();
 	}
 	
+	public void nuke() {
+		 get_firing_weapon().destroy(this);
+	}
+	
 	private Weapon owner = null;
 }

@@ -5,8 +5,7 @@ http://www.solarsystemscope.com/ is an excellent view of the solar system, if I 
 
 User stories for arcade version...
 
- - Fix gravity well (see about using sensors)
- - Fix space boundary
+ - [Bug] Fix space boundary
  - Start Game Screen
  - End Game Screen
  - Destroy ship
@@ -65,3 +64,5 @@ User stories for arcade version...
  - [Done] Collision detection with lazers.
  - [Done] Planets kill ship
  - [Done] Lazer should not affect owning ship.
+ - [Done] [Bug] Fix lazer disappearing on contact
+ - [Done] [Bug] Fix gravity well (see about using sensors)

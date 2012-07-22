@@ -10,7 +10,7 @@ import com.twin_nova.utilities.Console;
 import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
 
-public class LazerFixture extends BodyFixture {
+public class LazerFixture extends WeaponFixture {
 
 	protected LazerFixture(SpaceBody owner) {
 		super(owner, Texture.blue_lazer, new Vector2(0,0), 0);
@@ -24,10 +24,9 @@ public class LazerFixture extends BodyFixture {
 	@Override
 	public FixtureDef get_fixture_def() {
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(Global.to_meters(get_sprite().getWidth()), 
-					   Global.to_meters(get_sprite().getHeight()), 
-					   get_body_offset(),
-					   get_angle());
+		shape.setAsBox(Global.to_meters(get_sprite().getHeight()), 
+					   Global.to_meters(5));
+		
 		
 		FixtureDef fixture_def = new FixtureDef();
 		fixture_def.shape = shape;
@@ -57,5 +56,9 @@ public class LazerFixture extends BodyFixture {
 		Ship firing_ship = ((WeaponFire)getOwner()).get_firing_ship();
 		SpaceBody incoming_object = bodyFixture.getOwner();
 		return (firing_ship != incoming_object);		
+	}
+	
+	public void register_contact_begin(BodyFixture fixture) {
+		((WeaponFire)getOwner()).nuke();
 	}
 }

@@ -48,10 +48,4 @@ public class HeroCockpit extends ShipPart {
 	protected float get_mass() {
 		return part_mass;
 	}
-	
-	public void update() {
-		super.update();
-		Console.write_line("Fixture X pos", get_world_center().x);
-		Console.write_line("Fixture Y pos", get_world_center().y);
-	}
 }
