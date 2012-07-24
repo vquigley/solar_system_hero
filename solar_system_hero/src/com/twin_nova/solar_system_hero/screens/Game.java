@@ -52,7 +52,7 @@ public class Game implements Screen {
 	}
 
 	@Override
-	public void render(float arg0) {
+	public void render(float delta) {
 		
 		o_cam.update();
 		batch.setProjectionMatrix(o_cam.combined);
@@ -62,7 +62,7 @@ public class Game implements Screen {
 		batch.begin();
 		space.update();
 		
-		space.render(batch);
+		space.render(batch, delta);
 		//Console.flush_buffer(batch);
 		
 		

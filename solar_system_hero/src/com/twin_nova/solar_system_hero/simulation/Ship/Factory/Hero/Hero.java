@@ -11,6 +11,7 @@ import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.Weapon;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.LazerBank;
 import com.twin_nova.utilities.Console;
 import com.twin_nova.utilities.Global;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 
 public class Hero extends Ship {
 
@@ -69,5 +70,8 @@ public class Hero extends Ship {
 	@Override
 	public short get_weapon_category() {
 		return Space.instance().player_category;
+	}
+	
+	public void Destory() {
 	}
 }

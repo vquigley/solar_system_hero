@@ -1,11 +1,16 @@
 package com.twin_nova.solar_system_hero.simulation;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -14,6 +19,7 @@ import com.twin_nova.solar_system_hero.simulation.Planet.Planet;
 import com.twin_nova.solar_system_hero.simulation.Planet.PlanetBuilder;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipBuilder;
+import com.twin_nova.utilities.Console;
 import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
 
@@ -43,6 +49,11 @@ public class Space {
 	private static Space self;
 	private Star sun 					= null;
 	public  Boundary boundary				= null;
+	
+	boolean end_game = false;
+	
+
+	ParticleEffect particleEffect = new ParticleEffect();
 	
 	public World World() {
 		return world;
@@ -129,6 +140,8 @@ public class Space {
 		sun 					= new Star();
 		boundary				= new Boundary();
 		
+		particleEffect.load(Gdx.files.internal("particle/explosion"), 
+	            			Gdx.files.internal("particle/images"));
 	}
 	
 	public void update() {
@@ -145,7 +158,7 @@ public class Space {
 			planet.update();
 		}
 		
-		if ((player != null) && (boundary.update(player) == false)) {
+		if ((end_game == false) && (player != null) && (boundary.update(player) == false)) {
 			//  Let ship steer itself.
 			player.update();
 		}
@@ -161,15 +174,17 @@ public class Space {
 			
 
 			if (nuke_list.get(i) == player) {
-				player = null;
+				end_game = true;
+
+				particleEffect.start();
 			}
 		}
 		
 		nuke_list.clear();
 	}
 	
-	public void render(SpriteBatch batch) {
-				
+	public void render(SpriteBatch batch, float delta) {
+		  
 		for (Sprite star : stars) {
 			star.draw(batch);
 		}
@@ -179,12 +194,22 @@ public class Space {
 		}
 		
 		for (Ship ship : ships) {
-			if (ship != null) {
+			if (end_game == false) {
 				ship.render();
 			}
 		}
 		
 		sun.render();
+		
+		if (end_game != false) {		
+			particleEffect.setPosition(Global.to_pixels(player.get_body().getWorldCenter().x), 
+									   Global.to_pixels(player.get_body().getWorldCenter().y));
+			particleEffect.draw(batch, delta);
+			
+			if (particleEffect.isComplete() != false) {
+				player = null;
+			}
+		}
 	}
 	
 	public void render_meshes()
