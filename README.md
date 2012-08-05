@@ -5,7 +5,6 @@ http://www.solarsystemscope.com/ is an excellent view of the solar system, if I 
 
 User stories for arcade version...
 
- - More intelligent autopilot
  - Add enemy 1
  - AI...good luck.
  - Damage scales.
@@ -21,6 +20,7 @@ User stories for arcade version...
  - Moons
  - Sun gravity.
  - Sun thermal damage.
+ - More intelligent autopilot
  - Add asteroids 
  - Add asteroid belt
  - Missiles.

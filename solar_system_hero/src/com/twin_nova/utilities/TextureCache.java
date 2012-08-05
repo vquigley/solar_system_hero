@@ -14,7 +14,8 @@ public class TextureCache {
 		sun("sun.png"),
 		lazer_bank("lazer_bank.png"),
 		main_menu("main_menu.png"),
-		end_game("end_game.png");
+		end_game("end_game.png"),
+		enemy_scout("scout.png");
 		
 	
 		public String file_name;
