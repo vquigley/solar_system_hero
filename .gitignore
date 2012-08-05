@@ -1,8 +1,7 @@
 *.class
 .metadata
 # Package Files #
-*.jar
 *.war
 *.ear
 *.
-
+solar_system_hero/Release/*
