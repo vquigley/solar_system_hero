@@ -3,10 +3,8 @@ package com.twin_nova.solar_system_hero.simulation.Planet;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.twin_nova.solar_system_hero.screens.Game;
 import com.twin_nova.solar_system_hero.simulation.BodyFixture;
 import com.twin_nova.solar_system_hero.simulation.SpaceBody;
-import com.twin_nova.utilities.Console;
 import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
 

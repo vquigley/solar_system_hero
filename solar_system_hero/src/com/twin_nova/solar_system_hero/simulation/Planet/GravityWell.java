@@ -3,7 +3,6 @@ package com.twin_nova.solar_system_hero.simulation.Planet;
 import com.badlogic.gdx.math.Vector2;
 import com.twin_nova.solar_system_hero.simulation.Space;
 import com.twin_nova.solar_system_hero.simulation.SpaceBody;
-import com.twin_nova.utilities.Console;
 
 public class GravityWell {
 	
