@@ -5,3 +5,6 @@
 *.ear
 *.
 solar_system_hero/Release/*
+solar_system_hero/Bin/*
+solar_system_hero-android/Bin/*
+*Thumbs.db
