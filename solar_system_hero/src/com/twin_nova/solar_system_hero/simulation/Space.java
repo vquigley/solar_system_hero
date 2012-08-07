@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.twin_nova.solar_system_hero.simulation.Planet.Planet;
 import com.twin_nova.solar_system_hero.simulation.Planet.PlanetBuilder;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.EnemyPortal;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipBuilder;
 import com.twin_nova.utilities.Global;
@@ -46,6 +47,8 @@ public class Space {
 	public  Boundary boundary				= null;
 	
 	boolean end_game = false;
+	
+	private ArrayList<EnemyPortal> portals = new ArrayList<EnemyPortal>();
 	
 
 	ParticleEffect particleEffect = new ParticleEffect();
@@ -118,6 +121,7 @@ public class Space {
 				scale = scale_min;
 			}
 			
+			
 		}
 		
 		// Add planets, their position in space is dependent on the system time.
@@ -137,6 +141,9 @@ public class Space {
 		
 		particleEffect.load(Gdx.files.internal("particle/explosion"), 
 	            			Gdx.files.internal("particle/images"));
+		
+
+		portals.add(new EnemyPortal(new Vector2(10, 0), 0));
 	}
 	
 	public void update() {
@@ -151,6 +158,10 @@ public class Space {
 		
 		for (Planet planet : planets) {
 			planet.update();
+		}
+		
+		for (EnemyPortal portal : portals) {
+			portal.update();
 		}
 		
 		if ((end_game == false) && (player != null) && (boundary.update(player) == false)) {
@@ -192,6 +203,10 @@ public class Space {
 			if (end_game == false) {
 				ship.render();
 			}
+		}
+		
+		for (EnemyPortal portal : portals) {
+			portal.render();
 		}
 		
 		sun.render();

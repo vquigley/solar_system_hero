@@ -5,6 +5,7 @@ http://www.solarsystemscope.com/ is an excellent view of the solar system, if I 
 
 User stories for arcade version...
 
+ - Add enemy portal
  - Add enemy 1
  - AI...good luck.
  - Damage scales.

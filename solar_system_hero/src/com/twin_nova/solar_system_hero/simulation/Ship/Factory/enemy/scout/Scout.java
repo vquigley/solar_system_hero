@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.IShipControl;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipPart;
-import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Hero.HeroCockpit;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.LazerBank;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.Weapon;
 import com.twin_nova.utilities.Global;

@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.twin_nova.solar_system_hero.simulation.BodyFixture;
 import com.twin_nova.solar_system_hero.simulation.SpaceBody;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
-import com.twin_nova.utilities.Console;
 import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
 

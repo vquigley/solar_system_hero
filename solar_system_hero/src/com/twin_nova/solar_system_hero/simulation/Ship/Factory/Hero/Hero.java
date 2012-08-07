@@ -9,9 +9,7 @@ import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipPart;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.Weapon;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.LazerBank;
-import com.twin_nova.utilities.Console;
 import com.twin_nova.utilities.Global;
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 
 public class Hero extends Ship {
 

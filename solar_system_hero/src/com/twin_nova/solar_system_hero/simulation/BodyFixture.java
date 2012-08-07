@@ -19,7 +19,11 @@ public abstract class BodyFixture {
 		this.body_offset = body_offset;
 		this.angle_offset = angle_offset;
 		current_health = get_health();
-		sprite = new Sprite(Global.textures.get(texture));
+		
+		if (texture != null) {
+			sprite = new Sprite(Global.textures.get(texture));			
+		}
+		
 		FixtureDef fixture_def = get_fixture_def();
 		fixture_def.filter.categoryBits = owner.get_weapon_category();
 		fixture_def.filter.maskBits = owner.get_weapon_mask();
@@ -33,10 +37,18 @@ public abstract class BodyFixture {
 		Transform transform = getOwner().body.getTransform();
 		transform.mul(world_position);
 		
-		world_position.x -=  Global.to_meters(get_sprite().getWidth() / 2);
-		world_position.y -=  Global.to_meters(get_sprite().getHeight() / 2);
+		world_position.x -=  Global.to_meters(this.get_width() / 2);
+		world_position.y -=  Global.to_meters(this.get_height() / 2);
 	
 		return world_position;
+	}
+	
+	public float get_width() {
+		return get_sprite().getWidth();
+	}
+	
+	public float get_height() {
+		return get_sprite().getHeight();
 	}
 	
 	public float get_angle() {
@@ -48,11 +60,13 @@ public abstract class BodyFixture {
 	}
 	
 	public void update() {
-		Vector2 world_position = get_world_center();
-		
-		get_sprite().setPosition(Global.to_pixels(world_position.x), 
-								 Global.to_pixels(world_position.y));
-		get_sprite().setRotation(Global.to_degrees(get_angle()) - 90);
+		if (get_sprite() != null) {
+			Vector2 world_position = get_world_center();
+			
+			get_sprite().setPosition(Global.to_pixels(world_position.x), 
+									 Global.to_pixels(world_position.y));
+			get_sprite().setRotation(Global.to_degrees(get_angle()) - 90);
+		}
 	}
 	
 	

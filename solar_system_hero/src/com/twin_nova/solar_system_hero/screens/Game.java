@@ -13,6 +13,7 @@ import com.twin_nova.utilities.Global;
 public class Game implements Screen {
 	private Space space 				= Space.init();
 	public static SpriteBatch batch 		= new SpriteBatch();
+	public static float delta = 0;
 	private OrthographicCamera o_cam = new OrthographicCamera(Gdx.graphics.getWidth(), 
 																	 Gdx.graphics.getHeight());
 	
@@ -53,6 +54,7 @@ public class Game implements Screen {
 
 	@Override
 	public void render(float delta) {
+		Game.delta = delta;
 		
 		o_cam.update();
 		batch.setProjectionMatrix(o_cam.combined);

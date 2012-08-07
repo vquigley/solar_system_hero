@@ -6,7 +6,6 @@ import java.util.Iterator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.twin_nova.solar_system_hero.simulation.Space;
 import com.twin_nova.solar_system_hero.simulation.SpaceBody;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.Weapon;
 import com.twin_nova.utilities.Console;
