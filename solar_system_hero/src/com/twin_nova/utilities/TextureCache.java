@@ -15,7 +15,16 @@ public class TextureCache {
 		lazer_bank("lazer_bank.png"),
 		main_menu("main_menu.png"),
 		end_game("end_game.png"),
-		enemy_scout("scout.png");
+		enemy_scout("scout.png"),
+		
+		digit_7("digit_7.png"),
+		digit_6("digit_6.png"),
+		digit_5("digit_5.png"),
+		digit_4("digit_4.png"),
+		digit_3("digit_3.png"),
+		digit_2("digit_2.png"),
+		digit_1("digit_1.png"),
+		digit_0("digit_0.png");
 		
 	
 		public String file_name;

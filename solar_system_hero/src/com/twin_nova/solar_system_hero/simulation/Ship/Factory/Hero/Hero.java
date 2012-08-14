@@ -17,7 +17,7 @@ public class Hero extends Ship {
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
 			
-	public Hero(Vector2 start_coordinates, int start_direction, IShipControl control) {
+	public Hero(Vector2 start_coordinates, float start_direction, IShipControl control) {
 		super(start_coordinates, start_direction, control);
 	}
 

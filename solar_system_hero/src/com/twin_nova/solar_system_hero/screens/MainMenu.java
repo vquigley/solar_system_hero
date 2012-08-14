@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.twin_nova.utilities.Global;
+import com.twin_nova.utilities.StringBuild;
 import com.twin_nova.utilities.TextureCache.Texture;
 
 public class MainMenu implements Screen{
@@ -13,6 +15,13 @@ public class MainMenu implements Screen{
      private com.badlogic.gdx.graphics.Texture splsh = Global.textures.get(Texture.main_menu);
      
 	private com.badlogic.gdx.Game controller = null;
+	
+	StringBuild title = new StringBuild(new Vector2(0, Gdx.graphics.getHeight() / 2), 
+										"abcdefghijklmnopqrstuvwxyz\n" + 
+										"ABCDEFGHIJKLMNOPQRSTUVWXYZ\n" + 
+										"\\/.?=+-'\n" + 
+										"1234567890\n" + 
+										"\r\r\r\r\r\r\r\r\n");
 	
 	public MainMenu(com.badlogic.gdx.Game controller) {
 		this.controller = controller;
@@ -41,6 +50,7 @@ public class MainMenu implements Screen{
 		 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
          spriteBatch.begin();
          spriteBatch.draw(splsh, 0, 0);
+         title.render(spriteBatch);
          spriteBatch.end();
          
 		if (Gdx.input.isTouched() != false) {

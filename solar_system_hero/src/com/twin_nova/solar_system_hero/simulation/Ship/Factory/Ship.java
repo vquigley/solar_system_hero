@@ -16,7 +16,7 @@ public abstract class Ship extends SpaceBody {
 	private IShipControl ship_control = null;
 	
 	protected Ship(Vector2 start_coordinates, 
-				   int start_direction,
+				   float start_direction,
 				   IShipControl control) {
 		super(start_coordinates, start_direction);		
 		ship_control = control;

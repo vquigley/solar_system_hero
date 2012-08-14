@@ -5,9 +5,10 @@ http://www.solarsystemscope.com/ is an excellent view of the solar system, if I 
 
 User stories for arcade version...
 
- - Add enemy portal
  - Add enemy 1
  - AI...good luck.
+ - Text (the retro 8 thing)
+ - Scores
  - Damage scales.
  - Lazer energy meter.
  - Thruster animation
@@ -68,3 +69,4 @@ User stories for arcade version...
  - [Done] Start Game Screen
  - [Done] End Game Screen
  - [Done] Destroy ship using particle emitter
+ - [Done] Add enemy portal

@@ -16,7 +16,7 @@ public class Scout extends Ship {
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
 	
-	protected Scout(Vector2 start_coordinates, int start_direction, IShipControl control) {
+	public Scout(Vector2 start_coordinates, float start_direction, IShipControl control) {
 		super(start_coordinates, start_direction, control);
 	}
 
