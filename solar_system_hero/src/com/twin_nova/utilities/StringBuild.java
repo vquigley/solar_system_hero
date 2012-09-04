@@ -1,6 +1,7 @@
 package com.twin_nova.utilities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -27,6 +28,8 @@ public class StringBuild {
     private float width;
     private float height;
     private float incriment;
+	private EDisplayType display_type = EDisplayType.ENormal;
+	private double display_type_duration;
     
     private static final int CHAR_NOT_FOUND = -1;
     
@@ -170,7 +173,7 @@ public class StringBuild {
 		char_hash.put('X', all);
 		
 		char_hash.put('y', all ^ (bl | t));
-		char_hash.put('Y', all ^ (t | tl));
+		char_hash.put('Y', all ^ (bl | t));
 		
 		char_hash.put('z', all ^ (tl | br));
 		char_hash.put('Z', all ^ (tl | br));
@@ -195,6 +198,17 @@ public class StringBuild {
 		 ')', '"', '\'', '?', '!', '.'
 		char_hash */
     }
+	
+	public void each_letter_random_for(double seconds) {
+		display_type = EDisplayType.ERandomEntry;
+		display_type_duration = seconds;
+	}
+	
+	public enum EDisplayType
+	{
+		ERandomEntry,
+		ENormal
+	}
 	
 /*	private static void disect()
 	{	
@@ -237,14 +251,39 @@ public class StringBuild {
         position = new Vector2(position.x * changeX, position.y * changeY);
     }*/
 	
+	private Date last_render_change = null;
+	private Integer next_displayed_char = 0;
+	
 	public void render(SpriteBatch batch)
     {
-		int char_index = 0;
+		if (last_render_change == null)
+		{
+			last_render_change = new Date();
+		}
+		
+		
+		Integer char_index = 0;
 		Vector2 next_char_position = new Vector2(position);
 		
 		while (char_index < stringToWrite.length())
 		{
-			char next_char = stringToWrite.charAt(char_index++);
+			Date current_render_time = new Date();
+			char next_char = stringToWrite.charAt(char_index);
+			
+			if ((display_type == EDisplayType.ERandomEntry) &&
+				(next_char != '\n') &&
+				(next_displayed_char <= char_index) &&
+				(current_render_time.getTime() - last_render_change.getTime()) < (this.display_type_duration * 1000))
+			{
+				next_char = '\r';
+			}
+			else if (next_displayed_char == char_index)
+			{				
+				next_displayed_char++;				
+				last_render_change = current_render_time; 
+			}
+			
+			++char_index;
 			
 			// Special chars
 			switch (next_char) {

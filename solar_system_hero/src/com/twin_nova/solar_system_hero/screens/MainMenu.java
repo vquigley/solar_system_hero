@@ -12,19 +12,16 @@ import com.twin_nova.utilities.TextureCache.Texture;
 public class MainMenu implements Screen{
 
 	 private SpriteBatch spriteBatch = new SpriteBatch();
-     private com.badlogic.gdx.graphics.Texture splsh = Global.textures.get(Texture.main_menu);
      
 	private com.badlogic.gdx.Game controller = null;
 	
-	StringBuild title = new StringBuild(new Vector2(0, Gdx.graphics.getHeight() / 2), 
-										"abcdefghijklmnopqrstuvwxyz\n" + 
-										"ABCDEFGHIJKLMNOPQRSTUVWXYZ\n" + 
-										"\\/.?=+-'\n" + 
-										"1234567890\n" + 
-										"\r\r\r\r\r\r\r\r\n");
+	StringBuild title = new StringBuild(new Vector2(Gdx.graphics.getWidth() / 4,
+													Gdx.graphics.getHeight() / 2), 
+										"SOLAR SYSTEM HERO\n\n\nTouch To Start");
 	
 	public MainMenu(com.badlogic.gdx.Game controller) {
 		this.controller = controller;
+		title.each_letter_random_for(0.5f);
 	}
 
 	@Override
@@ -49,7 +46,6 @@ public class MainMenu implements Screen{
 	public void render(float arg0) {
 		 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
          spriteBatch.begin();
-         spriteBatch.draw(splsh, 0, 0);
          title.render(spriteBatch);
          spriteBatch.end();
          
