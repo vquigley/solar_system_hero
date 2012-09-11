@@ -5,13 +5,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.StringBuild;
-import com.twin_nova.utilities.TextureCache.Texture;
 
 public class MainMenu implements Screen{
 
-	 private SpriteBatch spriteBatch = new SpriteBatch();
+	private SpriteBatch spriteBatch = new SpriteBatch();
      
 	private com.badlogic.gdx.Game controller = null;
 	

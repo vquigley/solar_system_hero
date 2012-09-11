@@ -13,16 +13,19 @@ import com.twin_nova.utilities.Global;
 
 public abstract class Ship extends SpaceBody {
 
-	private IShipControl ship_control = null;
+	private ShipControl ship_control = null;
+	
+	public ShipControl control() {return ship_control;}
 	
 	protected Ship(Vector2 start_coordinates, 
 				   float start_direction,
-				   IShipControl control) {
+				   ShipControl control) {
 		super(start_coordinates, start_direction);		
 		ship_control = control;
 	}
 	
 	public void update() {
+		super.update();
 		ship_control.update(this);
 		
 		Iterator<Fixture> f_it = body.getFixtureList().iterator();

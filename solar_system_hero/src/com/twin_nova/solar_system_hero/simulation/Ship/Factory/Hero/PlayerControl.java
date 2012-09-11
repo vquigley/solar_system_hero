@@ -3,10 +3,10 @@ package com.twin_nova.solar_system_hero.simulation.Ship.Factory.Hero;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.twin_nova.solar_system_hero.simulation.Ship.Factory.IShipControl;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipControl;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 
-public class PlayerControl implements IShipControl {
+public class PlayerControl extends ShipControl {
 	
 	private static int Torque = 5;
 	private static int Impulse = 5;

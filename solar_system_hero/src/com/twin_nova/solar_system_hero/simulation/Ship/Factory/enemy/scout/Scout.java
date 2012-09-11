@@ -3,8 +3,8 @@ package com.twin_nova.solar_system_hero.simulation.Ship.Factory.enemy.scout;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
-import com.twin_nova.solar_system_hero.simulation.Ship.Factory.IShipControl;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipControl;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipPart;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.LazerBank;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.Weapon;
@@ -16,7 +16,7 @@ public class Scout extends Ship {
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
 	
-	public Scout(Vector2 start_coordinates, float start_direction, IShipControl control) {
+	public Scout(Vector2 start_coordinates, float start_direction, ShipControl control) {
 		super(start_coordinates, start_direction, control);
 	}
 
@@ -62,5 +62,4 @@ public class Scout extends Ship {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

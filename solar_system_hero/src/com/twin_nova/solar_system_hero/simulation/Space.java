@@ -49,7 +49,7 @@ public class Space {
 	boolean end_game = false;
 	
 	private ArrayList<EnemyPortal> portals = new ArrayList<EnemyPortal>();
-	
+	public void add_ship(Ship ship) { ships.add(ship);}
 
 	ParticleEffect particleEffect = new ParticleEffect();
 	
@@ -129,9 +129,6 @@ public class Space {
 		
 		player = ShipBuilder.build_hero(new Vector2(0, 4), 0);
 		
-		// Create controlled ship. It always starts at earth.
-		ships.add(player);
-		
 		world.setContactListener(contact_listener);
 		world.setContactFilter(contact_filter);
 		
@@ -143,7 +140,7 @@ public class Space {
 	            			Gdx.files.internal("particle/images"));
 		
 
-		portals.add(new EnemyPortal(new Vector2(10, 0), 0));
+		portals.add(new EnemyPortal(new Vector2(10, 0), 180));
 	}
 	
 	public void update() {
@@ -160,6 +157,10 @@ public class Space {
 			planet.update();
 		}
 		
+		for (Ship ship : ships) {
+			ship.update();
+		}
+		
 		for (EnemyPortal portal : portals) {
 			portal.update();
 		}
@@ -169,6 +170,7 @@ public class Space {
 			player.update();
 		}
 		space_date = new Date();
+		
 		nuke();
 	}
 	
@@ -176,14 +178,19 @@ public class Space {
 	{
 		for (int i = nuke_list.size() - 1; i >= 0; --i)
 		{
-			nuke_list.get(i).destroy();
-			
+			SpaceBody body = nuke_list.get(i);
 
-			if (nuke_list.get(i) == player) {
+			if (body == player) {
 				end_game = true;
 
 				particleEffect.start();
 			}
+			else if (body instanceof Ship)
+			{
+			  ships.remove(body);	
+			}
+			
+			body.destroy();
 		}
 		
 		nuke_list.clear();
@@ -200,9 +207,11 @@ public class Space {
 		}
 		
 		for (Ship ship : ships) {
-			if (end_game == false) {
-				ship.render();
-			}
+			ship.render();
+		}
+		
+		if (end_game == false) {
+			player.render();
 		}
 		
 		for (EnemyPortal portal : portals) {

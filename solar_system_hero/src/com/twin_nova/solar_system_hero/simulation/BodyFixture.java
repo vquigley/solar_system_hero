@@ -76,13 +76,13 @@ public abstract class BodyFixture {
 	}
 	
 	public void apply_damage(int damage) {
-		if (get_health() != INFINITE_HEALTH) {
+		if ((get_health() != INFINITE_HEALTH) && (current_health > 0)) {
 			
 			current_health -= damage;
 			
 			if (current_health <= 0)
 			{
-				Space.instance().nuke_list.add(this.getOwner());	
+				Space.instance().nuke_list.add(this.getOwner());
 			}
 		}
 	}

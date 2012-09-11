@@ -1,21 +1,10 @@
 package com.twin_nova.solar_system_hero.simulation.Ship.Factory.enemy.scout;
 
-import com.twin_nova.solar_system_hero.simulation.Ship.Factory.IShipControl;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipControl;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 
-public class ScoutAI implements IShipControl {
+public class ScoutAI extends ShipControl {
 	
-	enum State {
-		Disabled,
-		Destroyed,
-		ExitingPortal,
-		AttackEarth,
-		AttackHero,
-		Patrol,
-		GroupMind
-	}
-
-	@Override
 	public void update(Ship ship) {
 		switch (state)
 		{
@@ -35,11 +24,11 @@ public class ScoutAI implements IShipControl {
 			break;
 		case Patrol:
 			ship.get_body().setLinearVelocity(ship.get_force(5f));
+			ship.get_body().setAngularVelocity(1f);
+			ship.fire_a();
 			break;
 		default:
 			break;
 		}	
 	}
-	
-	State state = State.ExitingPortal;
 }

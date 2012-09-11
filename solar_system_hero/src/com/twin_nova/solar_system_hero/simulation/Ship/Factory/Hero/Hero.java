@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
 import com.twin_nova.solar_system_hero.simulation.Space;
-import com.twin_nova.solar_system_hero.simulation.Ship.Factory.IShipControl;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipControl;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipPart;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Weapon.Weapon;
@@ -17,7 +17,7 @@ public class Hero extends Ship {
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
 			
-	public Hero(Vector2 start_coordinates, float start_direction, IShipControl control) {
+	public Hero(Vector2 start_coordinates, float start_direction, ShipControl control) {
 		super(start_coordinates, start_direction, control);
 	}
 
