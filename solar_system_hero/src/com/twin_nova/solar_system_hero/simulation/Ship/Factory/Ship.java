@@ -73,4 +73,8 @@ public abstract class Ship extends SpaceBody {
 	public abstract float top_speed();
 	public abstract void fire_a();
 	public abstract void fire_b();
+
+	public int getKillValue() {
+		return 10;
+	}
 }

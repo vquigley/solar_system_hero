@@ -2,16 +2,19 @@ package com.twin_nova.utilities;
 
 public class Score {
 
-	private Score instance;
+	private static final int INITIAL_SCORE =  0;
+	private static final int DEFAULT_MULTIPLIER = 1;
+
+	private static Score instance;
 	
-	private int value;
-	private int multiplier;
+	private int value = INITIAL_SCORE;
+	private int multiplier = DEFAULT_MULTIPLIER;
 
 	private Score() {
 		// Do nothing.
 	}
 	
-	public Score Instance() {
+	public static Score Instance() {
 		if (instance == null) {
 			instance = new Score();
 		}
@@ -19,6 +22,17 @@ public class Score {
 		return instance;		
 	}
 	
+	public int getValue() {return value;}
 	
+	public void increaseScore(int delta) {
+		this.value += (delta * multiplier);
+	}
 	
+	public void increaseMultiplier(int delta) {
+		multiplier += delta;
+	}
+	
+	public void resetMultiplier() {
+		multiplier = DEFAULT_MULTIPLIER;
+	}
 }

@@ -16,7 +16,9 @@ import com.twin_nova.solar_system_hero.simulation.Planet.PlanetBuilder;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.EnemyPortal;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipBuilder;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipPart;
 import com.twin_nova.utilities.Global;
+import com.twin_nova.utilities.Score;
 import com.twin_nova.utilities.TextureCache.Texture;
 
 public class Space {	
@@ -52,6 +54,7 @@ public class Space {
 	public void add_ship(Ship ship) { ships.add(ship);}
 
 	ParticleEffect particleEffect = new ParticleEffect();
+	public ArrayList<BodyFixture>  nuke_fixture = new ArrayList<BodyFixture>();
 	
 	public World World() {
 		return world;
@@ -147,6 +150,7 @@ public class Space {
 		world.step(Global.step_delta(), 6, 3);
 		
 		sun.update();
+
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
 			// Reset.
@@ -176,6 +180,23 @@ public class Space {
 	
 	private void nuke()
 	{
+		for (int i = nuke_fixture.size() - 1; i >= 0; --i)
+		{
+			BodyFixture f = nuke_fixture.get(i);
+
+			if (f instanceof ShipPart)
+			{
+				ShipPart part = (ShipPart)f;
+				
+				if (part.integralPart)
+				{
+					nuke_list.add(part.getOwner());
+				}
+			}
+			
+			f.getOwner().destroyFixture(f);
+		}
+		
 		for (int i = nuke_list.size() - 1; i >= 0; --i)
 		{
 			SpaceBody body = nuke_list.get(i);
@@ -187,12 +208,14 @@ public class Space {
 			}
 			else if (body instanceof Ship)
 			{
-			  ships.remove(body);	
+				Ship ship = (Ship)body;
+				ships.remove(ship);
+				Score.Instance().increaseScore((ship).getKillValue());
 			}
 			
 			body.destroy();
 		}
-		
+		nuke_fixture.clear();
 		nuke_list.clear();
 	}
 	

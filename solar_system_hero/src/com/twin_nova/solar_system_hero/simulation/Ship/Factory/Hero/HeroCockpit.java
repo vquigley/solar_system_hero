@@ -12,6 +12,7 @@ public class HeroCockpit extends ShipPart {
 
 	public HeroCockpit(Ship owner, Vector2 body_offset) {
 		super(owner, Texture.player, body_offset, 0);
+		integralPart = true;
 	}
 
 	private static int health = 100;

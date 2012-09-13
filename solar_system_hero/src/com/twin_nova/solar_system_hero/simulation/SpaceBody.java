@@ -1,5 +1,6 @@
 package com.twin_nova.solar_system_hero.simulation;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.badlogic.gdx.math.Vector2;
@@ -69,5 +70,19 @@ public abstract class SpaceBody {
 	
 	public short get_weapon_category() {
 		return Space.instance().enemy_category;
+	}
+
+	public void destroyFixture(BodyFixture fixture) {
+		Iterator<Fixture> f_it = body.getFixtureList().iterator();
+		
+		while (f_it.hasNext()) {
+			Fixture f = f_it.next();
+			if (f.getUserData() == fixture)
+			{
+				f_it.remove();
+				break;
+			}
+			
+		}		
 	}
 }

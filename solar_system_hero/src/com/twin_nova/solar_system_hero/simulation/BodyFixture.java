@@ -82,7 +82,7 @@ public abstract class BodyFixture {
 			
 			if (current_health <= 0)
 			{
-				Space.instance().nuke_list.add(this.getOwner());
+				Space.instance().nuke_fixture.add(this);
 			}
 		}
 	}

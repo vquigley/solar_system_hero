@@ -1,5 +1,8 @@
 package com.twin_nova.solar_system_hero.screens;
 
+
+import java.util.Date;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -12,6 +15,7 @@ public class MainMenu implements Screen{
 	private SpriteBatch spriteBatch = new SpriteBatch();
      
 	private com.badlogic.gdx.Game controller = null;
+	private boolean isTouched = true;
 	
 	StringBuild title = new StringBuild(new Vector2(Gdx.graphics.getWidth() / 4,
 													Gdx.graphics.getHeight() / 2), 
@@ -20,6 +24,7 @@ public class MainMenu implements Screen{
 	public MainMenu(com.badlogic.gdx.Game controller) {
 		this.controller = controller;
 		title.each_letter_random_for(0.5f);
+		isTouched = true;
 	}
 
 	@Override
@@ -47,9 +52,12 @@ public class MainMenu implements Screen{
          title.render(spriteBatch);
          spriteBatch.end();
          
-		if (Gdx.input.isTouched() != false) {
+		if ((isTouched == false) && (Gdx.input.isTouched() != false)) {
 			controller.setScreen(new Game(controller));
 		}
+		
+		// Touch state still held from previous screen.
+		isTouched = (Gdx.input.isTouched() != false);
 	}
 
 	@Override
