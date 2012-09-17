@@ -37,7 +37,7 @@ public class Game implements Screen {
 		env_cam.zoom = 2.5f;
 		
 		
-		Boolean debug_view = false;
+		Boolean debug_view = true;
 		
 		if (debug_view != false) {
 			debug_camera =  new OrthographicCamera(Gdx.graphics.getWidth(), 
@@ -85,29 +85,28 @@ public class Game implements Screen {
 		// Follow the player.
 		
 		
-		if (debug_camera == null)
-		{
-			if (Space.instance().player() != null) {
-				env_cam.position.set(Global.to_pixels(Space.instance().player().get_body().getPosition().x), 
-						Global.to_pixels(Space.instance().player().get_body().getPosition().y), 
-						0);
-				
-				hud_cam.position.set(0, 
-						0, 
-						0);
-				
-			}
-		}
-		else
+		if (debug_camera != null)
 		{
 			debug_camera.update();
+			batch.setProjectionMatrix(debug_camera.combined);
 			//debug_camera.position.set(Space.player().get_body().getPosition().x, 
 			//						  Space.player().get_body().getPosition().y, 
 			//						  0);
 			debug_camera.zoom = 0.05f;
 		    debug_renderer.render( Space.instance().World(), debug_camera.combined );
+		    
 		}
-		
+		else if (Space.instance().player() != null) {
+			env_cam.position.set(Global.to_pixels(Space.instance().player().get_body().getPosition().x), 
+					Global.to_pixels(Space.instance().player().get_body().getPosition().y), 
+					0);
+			
+			hud_cam.position.set(0, 
+					0, 
+					0);
+			
+		}
+
 		env_cam.zoom = 2.5f;
 
 		

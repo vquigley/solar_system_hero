@@ -10,11 +10,18 @@ import com.twin_nova.utilities.TextureCache.Texture;
 
 public class PlanetFixture extends BodyFixture {
 
+	private int spriteBoundsX;
+	private int spriteBoundsY;
+
 	protected PlanetFixture(SpaceBody owner, 
 							Texture texture,
-							float part_mass) {
+							float part_mass,
+							 int spriteBoundsX,
+							 int spriteBoundsY) {
 		super(owner, texture, new Vector2(0,0), 0f);
 		this.part_mass = part_mass;
+		this.spriteBoundsX = spriteBoundsX;
+		this.spriteBoundsY = spriteBoundsY;
 	}
 
 	@Override
@@ -47,5 +54,17 @@ public class PlanetFixture extends BodyFixture {
 	}
 	
 	private float part_mass;
+
+	@Override
+	protected int getSpriteBoundHeight() {
+		// TODO Auto-generated method stub
+		return spriteBoundsY;
+	}
+
+	@Override
+	protected int getSpriteBoundWidth() {
+		// TODO Auto-generated method stub
+		return spriteBoundsX;
+	}
 
 }

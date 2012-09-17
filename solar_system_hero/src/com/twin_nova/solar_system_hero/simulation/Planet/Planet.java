@@ -13,12 +13,14 @@ public class Planet extends OrbitingObject {
 					 Vector2 ellipse_center,
 					 Vector2 ellipse_limits,
 					 float ellipse_angle,
-					 float mass) {
+					 float mass,
+					 int spriteBoundsX,
+					 int spriteBoundsY) {
 		super(ellipse_center,
 			  ellipse_limits,
 			  ellipse_angle);
 		
-		new PlanetFixture(this, planet_texture, mass);
+		new PlanetFixture(this, planet_texture, mass, spriteBoundsX, spriteBoundsY);
 		well = new GravityWell(this);
 	}
 

@@ -20,6 +20,9 @@ public class ScoutAI extends ShipControl {
 		case ExitingPortal:
 			ship.get_body().setLinearVelocity(ship.get_force(1f));
 			break;
+		case Stop:
+			ship.get_body().setLinearVelocity(ship.get_force(0f));
+			break;
 		case GroupMind:
 			break;
 		case Patrol:

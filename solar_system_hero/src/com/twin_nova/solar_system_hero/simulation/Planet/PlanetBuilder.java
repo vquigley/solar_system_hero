@@ -11,6 +11,8 @@ public class PlanetBuilder {
 						  new Vector2(0f, 0f), 
 						  new Vector2(20f, 10f), 
 						  0f, 
-						  Space.instance().earth_mass);
+						  Space.instance().earth_mass,
+						  256,
+						  256);
 	}
 }

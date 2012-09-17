@@ -23,6 +23,7 @@ import com.twin_nova.utilities.TextureCache.Texture;
 
 public class Space {	
 	private World world = new World(new Vector2(0, 0), false);
+	
 	public short player_category = 1;
 	public short enemy_category = 2;
 
@@ -31,9 +32,11 @@ public class Space {
 	
 	// All solar system masses are defined in terms of earth masses, which is defined as kgs.
 	public final float earth_mass 		= 1000;
-	public final float earth_year		= 30; // 1 minutes.
+	public final float earth_year		= 30;
+	
 	public final float half_size_x = 50f;
 	public final float half_size_y = 50f;
+	
 	private Sprite[] stars = null;
 	SpaceContact contact_listener = new SpaceContact();
 	ContactFilter contact_filter = new ContactFilter();
@@ -128,9 +131,9 @@ public class Space {
 		}
 		
 		// Add planets, their position in space is dependent on the system time.
-		planets.add(PlanetBuilder.build_earth());
+		//planets.add(PlanetBuilder.build_earth());
 		
-		player = ShipBuilder.build_hero(new Vector2(0, 4), 0);
+		player = ShipBuilder.build_hero(new Vector2(5, 5), 0);
 		
 		world.setContactListener(contact_listener);
 		world.setContactFilter(contact_filter);
@@ -143,13 +146,15 @@ public class Space {
 	            			Gdx.files.internal("particle/images"));
 		
 
-		portals.add(new EnemyPortal(new Vector2(10, 0), 180));
+		//portals.add(new EnemyPortal(new Vector2(10, 0), 180));
 	}
 	
 	public void update() {
 		world.step(Global.step_delta(), 6, 3);
 		
-		sun.update();
+		if (sun != null) {
+			sun.update();
+		}
 
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
@@ -241,7 +246,10 @@ public class Space {
 			portal.render();
 		}
 		
-		sun.render();
+		if (sun != null) {
+			sun.render();
+		}
+		
 		
 		if (end_game != false) {		
 			particleEffect.setPosition(Global.to_pixels(player.get_body().getWorldCenter().x), 

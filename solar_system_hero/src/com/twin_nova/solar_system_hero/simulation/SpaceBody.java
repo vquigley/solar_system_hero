@@ -1,6 +1,5 @@
 package com.twin_nova.solar_system_hero.simulation;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.badlogic.gdx.math.Vector2;
@@ -70,6 +69,10 @@ public abstract class SpaceBody {
 	
 	public short get_weapon_category() {
 		return Space.instance().enemy_category;
+	}
+	
+	public float getScaleFactor() {
+		return 1f;
 	}
 
 	public void destroyFixture(BodyFixture fixture) {

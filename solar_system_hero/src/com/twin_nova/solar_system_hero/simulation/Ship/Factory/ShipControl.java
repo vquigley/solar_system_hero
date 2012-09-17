@@ -14,6 +14,7 @@ public abstract class ShipControl {
 		AttackEarth,
 		AttackHero,
 		Patrol,
-		GroupMind
+		GroupMind, 
+		Stop
 	}
 }

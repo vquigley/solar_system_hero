@@ -44,4 +44,16 @@ public class ScoutCockpit extends ShipPart {
 		return part_mass;
 	}
 
+	@Override
+	protected int getSpriteBoundHeight() {
+		// TODO Auto-generated method stub
+		return 64;
+	}
+
+	@Override
+	protected int getSpriteBoundWidth() {
+		// TODO Auto-generated method stub
+		return 64;
+	}
+
 }

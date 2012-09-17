@@ -23,9 +23,9 @@ public class Global {
 	public static TextureCache textures = new TextureCache();
 	public static Vector2 target_resolution = new Vector2(640, 480);
 	
-	private static float pixels_per_metre = 60.0f;
-	private static float degrees_per_radian = 57.2957795f;
-	private static float step_delta = 1.0f / 30.0f;
+	public static float pixels_per_metre = 60.0f;
+	public static float degrees_per_radian = 57.2957795f;
+	public static float step_delta = 1.0f / 30.0f;
 			
 	public static float to_meters(float pixels) {
 		return (pixels / pixels_per_metre);

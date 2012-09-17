@@ -32,5 +32,17 @@ public class LazerBank extends Weapon {
 	protected float get_mass() {
 		return part_mass;
 	}
+
+	@Override
+	protected int getSpriteBoundHeight() {
+		// TODO Auto-generated method stub
+		return 16;
+	}
+
+	@Override
+	protected int getSpriteBoundWidth() {
+		// TODO Auto-generated method stub
+		return 16;
+	}
 	
 }

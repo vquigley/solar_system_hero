@@ -19,6 +19,13 @@ public class Hero extends Ship {
 			
 	public Hero(Vector2 start_coordinates, float start_direction, ShipControl control) {
 		super(start_coordinates, start_direction, control);
+		build_weapons();
+		build_cockpit();
+		build_impulse_engines();
+	}
+
+	public float getScaleFactor() {
+		return 1f;
 	}
 
 	@Override
@@ -30,6 +37,53 @@ public class Hero extends Ship {
 	@Override
 	public ShipPart build_engine() {
 		return null;
+	}
+	
+	private void build_impulse_engines() {
+		Vector2 frontLeft = new Vector2(242, 90);
+		Vector2 frontRight = new Vector2(242, -90);
+		
+		Vector2 rearLeft = new Vector2(-242, 140);
+		Vector2 rearRight = new Vector2(-242, -140);
+		
+		Vector2 leftTop = new Vector2(205, 121);
+		Vector2 leftBottom = new Vector2(-210, 174);
+		
+		Vector2 rightTop = new Vector2(205, -120);
+		Vector2 rightBottom = new Vector2(-210, -174);
+		
+		frontLeft.mul(1f / Global.pixels_per_metre);
+		frontLeft.mul(getScaleFactor());
+		
+		frontRight.mul(1f / Global.pixels_per_metre);
+		frontRight.mul(getScaleFactor());
+		
+		rearLeft.mul(1f / Global.pixels_per_metre);
+		rearLeft.mul(getScaleFactor());
+		
+		rearRight.mul(1f / Global.pixels_per_metre);
+		rearRight.mul(getScaleFactor());
+		
+		leftTop.mul(1f / Global.pixels_per_metre);
+		leftTop.mul(getScaleFactor());
+		
+		leftBottom.mul(1f / Global.pixels_per_metre);
+		leftBottom.mul(getScaleFactor());
+		
+		rightTop.mul(1f / Global.pixels_per_metre);
+		rightTop.mul(getScaleFactor());
+		
+		rightBottom.mul(1f / Global.pixels_per_metre);
+		rightBottom.mul(getScaleFactor());		
+		
+		new ImpulseEngine(this, frontLeft, 0);
+		new ImpulseEngine(this, frontRight, 0);
+		new ImpulseEngine(this, rearLeft, Global.to_radians(180));
+		new ImpulseEngine(this, rearRight, Global.to_radians(180));;
+		new ImpulseEngine(this, leftTop, Global.to_radians(-90));
+		new ImpulseEngine(this, leftBottom, Global.to_radians(-90));
+		new ImpulseEngine(this, rightTop, Global.to_radians(90));
+		new ImpulseEngine(this, rightBottom, Global.to_radians(90));
 	}
 
 	@Override

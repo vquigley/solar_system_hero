@@ -25,8 +25,6 @@ public class ShipBuilder {
 	
 // ============ Private methods ===================
 	private static Ship build(Ship ship) {
-		ship.build_weapons();
-		ship.build_cockpit();
 		return ship;
 	}
 }

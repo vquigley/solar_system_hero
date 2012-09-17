@@ -61,4 +61,16 @@ public class PortalFixture extends BodyFixture {
 				   				   Global.to_pixels(getOwner().get_body().getWorldCenter().y));
 		particleEffect.draw(Game.batch, Game.delta);
 	}
+
+	@Override
+	protected int getSpriteBoundHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int getSpriteBoundWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

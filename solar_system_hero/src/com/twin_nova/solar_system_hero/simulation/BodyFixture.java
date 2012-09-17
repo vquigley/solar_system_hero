@@ -21,7 +21,17 @@ public abstract class BodyFixture {
 		current_health = get_health();
 		
 		if (texture != null) {
-			sprite = new Sprite(Global.textures.get(texture));			
+			sprite = new Sprite(Global.textures.get(texture), 
+								getSpriteOriginX(), 
+								getSpriteOriginY(),
+								getSpriteBoundWidth(), 
+								getSpriteBoundHeight());
+						
+			sprite.setOrigin(getSpriteBoundWidth() * owner.getScaleFactor() / 2 , 
+						   	 getSpriteBoundHeight() * owner.getScaleFactor() / 2 );
+
+			sprite.setSize(getSpriteBoundWidth() * owner.getScaleFactor(), 
+					   getSpriteBoundHeight() * owner.getScaleFactor());
 		}
 		
 		FixtureDef fixture_def = get_fixture_def();
@@ -31,14 +41,28 @@ public abstract class BodyFixture {
 		get_fixture().setUserData(this);
 	}
 	
+	protected abstract int getSpriteBoundHeight();
+
+	protected abstract int getSpriteBoundWidth();
+
+	protected int getSpriteOriginX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	protected int getSpriteOriginY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	public Vector2 get_world_center() {
 		Vector2 world_position = body_offset.cpy();
 
 		Transform transform = getOwner().body.getTransform();
 		transform.mul(world_position);
 		
-		world_position.x -=  Global.to_meters(this.get_width() / 2);
-		world_position.y -=  Global.to_meters(this.get_height() / 2);
+		world_position.x -=  Global.to_meters(getSpriteBoundWidth() / 2) * owner.getScaleFactor();
+		world_position.y -=  Global.to_meters(getSpriteBoundHeight() / 2) * owner.getScaleFactor();
 	
 		return world_position;
 	}
@@ -65,7 +89,7 @@ public abstract class BodyFixture {
 			
 			get_sprite().setPosition(Global.to_pixels(world_position.x), 
 									 Global.to_pixels(world_position.y));
-			get_sprite().setRotation(Global.to_degrees(get_angle()) - 90);
+			get_sprite().setRotation(Global.to_degrees(get_angle()));
 		}
 	}
 	
@@ -78,7 +102,7 @@ public abstract class BodyFixture {
 	public void apply_damage(int damage) {
 		if ((get_health() != INFINITE_HEALTH) && (current_health > 0)) {
 			
-			current_health -= damage;
+			//current_health -= damage;
 			
 			if (current_health <= 0)
 			{

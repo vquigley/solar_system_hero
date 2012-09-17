@@ -16,6 +16,7 @@ public class TextureCache {
 		main_menu("main_menu.png"),
 		end_game("end_game.png"),
 		enemy_scout("scout.png"),
+		impulse_engine("impulseEngine.png"),
 		
 		digit_7("digit_7.png"),
 		digit_6("digit_6.png"),

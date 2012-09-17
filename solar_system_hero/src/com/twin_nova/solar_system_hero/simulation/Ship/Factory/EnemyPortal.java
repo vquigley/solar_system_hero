@@ -43,9 +43,9 @@ public class EnemyPortal extends SpaceBody {
 		while (ship_it.hasNext()) {
 			Ship ship = ship_it.next();
 			ship.update();
-			if ((Math.abs(ship.get_body().getPosition().x - get_body().getPosition().x) > 1) ||
-				(Math.abs(ship.get_body().getPosition().y - get_body().getPosition().y) > 1)) {
-				ship.control().set_state(ShipControl.State.Patrol);
+			if ((Math.abs(ship.get_body().getPosition().x - get_body().getPosition().x) > 5) ||
+				(Math.abs(ship.get_body().getPosition().y - get_body().getPosition().y) > 5)) {
+				ship.control().set_state(ShipControl.State.Stop);
 				Space.instance().add_ship(ship);
 				ship_it.remove();
 			}

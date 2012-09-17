@@ -23,7 +23,7 @@ public class StarFixture extends BodyFixture {
 	@Override
 	public FixtureDef get_fixture_def() {
 		CircleShape shape = new CircleShape();
-		shape.setRadius(Global.to_meters(sprite.getHeight() / 2));
+		shape.setRadius(Global.to_meters(getSpriteBoundHeight() * owner.getScaleFactor()) /2 );
 
 		FixtureDef fixture_def = new FixtureDef();
 		fixture_def.shape = shape;
@@ -41,5 +41,17 @@ public class StarFixture extends BodyFixture {
 	
 	public void update() {
 		super.update();
+	}
+
+	@Override
+	protected int getSpriteBoundHeight() {
+		// TODO Auto-generated method stub
+		return 256;
+	}
+
+	@Override
+	protected int getSpriteBoundWidth() {
+		// TODO Auto-generated method stub
+		return 256;
 	}
 }

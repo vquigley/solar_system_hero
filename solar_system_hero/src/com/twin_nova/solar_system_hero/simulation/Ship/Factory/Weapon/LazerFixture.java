@@ -60,4 +60,16 @@ public class LazerFixture extends WeaponFixture {
 	public void register_contact_begin(BodyFixture fixture) {
 		((WeaponFire)getOwner()).nuke();
 	}
+
+	@Override
+	protected int getSpriteBoundHeight() {
+		// TODO Auto-generated method stub
+		return 64;
+	}
+
+	@Override
+	protected int getSpriteBoundWidth() {
+		// TODO Auto-generated method stub
+		return 64;
+	}
 }
