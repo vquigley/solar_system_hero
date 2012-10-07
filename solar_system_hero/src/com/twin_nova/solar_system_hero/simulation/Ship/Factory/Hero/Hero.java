@@ -13,19 +13,28 @@ import com.twin_nova.utilities.Global;
 
 public class Hero extends Ship {
 
-	private static float top_speed = 3.0f;
+	private static float top_speed = 20.0f;
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
+
+	private ImpulseEngine leftFrontImpulse;
+	private ImpulseEngine rightFrontImpulse;
+	private ImpulseEngine rearLeftImpulse;
+	private ImpulseEngine rearRightImpulse;
+	private ImpulseEngine leftTopImpulse;
+	private ImpulseEngine leftBottomImpulse;
+	private ImpulseEngine rightTopImpulse;
+	private ImpulseEngine rightBottomImpulse;
 			
 	public Hero(Vector2 start_coordinates, float start_direction, ShipControl control) {
 		super(start_coordinates, start_direction, control);
 		build_weapons();
 		build_cockpit();
-		build_impulse_engines();
+		//build_impulse_engines();
 	}
 
 	public float getScaleFactor() {
-		return 1f;
+		return 0.4f;
 	}
 
 	@Override
@@ -46,11 +55,11 @@ public class Hero extends Ship {
 		Vector2 rearLeft = new Vector2(-242, 140);
 		Vector2 rearRight = new Vector2(-242, -140);
 		
-		Vector2 leftTop = new Vector2(205, 121);
-		Vector2 leftBottom = new Vector2(-210, 174);
+		Vector2 leftTop = new Vector2(172.6f, 121);
+		Vector2 leftBottom = new Vector2(-205, 174);
 		
-		Vector2 rightTop = new Vector2(205, -120);
-		Vector2 rightBottom = new Vector2(-210, -174);
+		Vector2 rightTop = new Vector2(172.6f, -121);
+		Vector2 rightBottom = new Vector2(-205, -174);
 		
 		frontLeft.mul(1f / Global.pixels_per_metre);
 		frontLeft.mul(getScaleFactor());
@@ -76,20 +85,20 @@ public class Hero extends Ship {
 		rightBottom.mul(1f / Global.pixels_per_metre);
 		rightBottom.mul(getScaleFactor());		
 		
-		new ImpulseEngine(this, frontLeft, 0);
-		new ImpulseEngine(this, frontRight, 0);
-		new ImpulseEngine(this, rearLeft, Global.to_radians(180));
-		new ImpulseEngine(this, rearRight, Global.to_radians(180));;
-		new ImpulseEngine(this, leftTop, Global.to_radians(-90));
-		new ImpulseEngine(this, leftBottom, Global.to_radians(-90));
-		new ImpulseEngine(this, rightTop, Global.to_radians(90));
-		new ImpulseEngine(this, rightBottom, Global.to_radians(90));
+		leftFrontImpulse 	= new ImpulseEngine(this, frontLeft, Global.to_radians(180));
+		rightFrontImpulse 	= new ImpulseEngine(this, frontRight, Global.to_radians(180));
+		rearLeftImpulse 	= new ImpulseEngine(this, rearLeft, 0);
+		rearRightImpulse 	= new ImpulseEngine(this, rearRight, 0);
+		leftTopImpulse 		= new ImpulseEngine(this, leftTop, Global.to_radians(-90));
+		leftBottomImpulse 	= new ImpulseEngine(this, leftBottom, Global.to_radians(-90));
+		rightTopImpulse 	= new ImpulseEngine(this, rightTop, Global.to_radians(90));
+		rightBottomImpulse	= new ImpulseEngine(this, rightBottom, Global.to_radians(90));
 	}
 
 	@Override
 	public ArrayList<Weapon> build_weapons() {
-		weapons_a.add(new LazerBank(this, new Vector2(Global.to_meters(40),Global.to_meters(10)), 0));
-		weapons_a.add(new LazerBank(this, new Vector2(Global.to_meters(40),Global.to_meters(-10)), 0));
+		weapons_a.add(new LazerBank(this, new Vector2(Global.to_meters(150),Global.to_meters(20)), 0));
+		weapons_a.add(new LazerBank(this, new Vector2(Global.to_meters(150),Global.to_meters(-20)), 0));
 		
 		for (Weapon weapon : weapons_a) {
 			weapon.get_fixture().getFilterData().categoryBits = get_weapon_category();
@@ -113,6 +122,57 @@ public class Hero extends Ship {
 	public void fire_b() {
 		
 	}
+
+	private void fireEngines(ImpulseEngine one,
+							 ImpulseEngine two) {
+		if (one != null)
+		{
+			one.fire();
+		}
+		
+		if (two != null)
+		{
+			two.fire();
+		}
+	}
+	
+	public void impulseForward()
+	{
+		fireEngines(rearLeftImpulse, 
+					rearRightImpulse);
+	}	
+
+	public void impulseBackward()
+	{
+		fireEngines(leftFrontImpulse, 
+				rightFrontImpulse);
+	}
+	
+	public void impulseLeft()
+	{
+		fireEngines(rightTopImpulse, 
+				rightBottomImpulse);
+	}
+	
+	public void impulseRight()
+	{
+		fireEngines(leftTopImpulse, 
+				leftBottomImpulse);
+	}
+	
+	public void impulseTurnLeft()
+	{
+		fireEngines(rightTopImpulse, 
+				leftBottomImpulse);
+	}
+	
+	public void impulseTurnRight()
+	{
+		fireEngines(leftTopImpulse, 
+				rightBottomImpulse);
+	}
+	
+	
 	
 	@Override
 	public short get_weapon_mask() {

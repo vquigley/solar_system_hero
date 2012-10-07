@@ -8,7 +8,6 @@ public class TextureCache {
 	public enum Texture
 	{
 		blue_lazer("blue_lazer.png"),
-		earth("earth.png"),
 		player("player.png"),
 		star("star.png"),
 		sun("sun.png"),
@@ -17,6 +16,11 @@ public class TextureCache {
 		end_game("end_game.png"),
 		enemy_scout("scout.png"),
 		impulse_engine("impulseEngine.png"),
+		
+		mercury("Mercury.png"),
+		venus("venus.png"),
+		earth("earth.png"),
+		mars("mars.png"),
 		
 		digit_7("digit_7.png"),
 		digit_6("digit_6.png"),

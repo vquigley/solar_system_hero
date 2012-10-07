@@ -66,7 +66,7 @@ public class HeroCockpit extends ShipPart {
 			
 			fixture_def = new FixtureDef();
 			fixture_def.shape = shape;
-			fixture_def.density = 0.002f;
+			fixture_def.density = 0.05f;
 			fixture_def.friction = friction;
 			fixture_def.restitution = restitution;
 		}

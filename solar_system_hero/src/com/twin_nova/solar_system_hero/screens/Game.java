@@ -34,16 +34,17 @@ public class Game implements Screen {
 		batch.setProjectionMatrix(hud_cam.combined);
 		batch.getProjectionMatrix().setToOrtho2D(0f, 0f, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		env_cam.update();
-		env_cam.zoom = 2.5f;
+		env_cam.zoom = 10.5f;
 		
 		
-		Boolean debug_view = true;
+		Boolean debug_view = false;
 		
 		if (debug_view != false) {
 			debug_camera =  new OrthographicCamera(Gdx.graphics.getWidth(), 
 					 							   Gdx.graphics.getHeight());
 			batch.setProjectionMatrix(debug_camera.combined);
 			debug_camera.update();
+			debug_camera.zoom = 0.15f;
 		}
 		
 		this.controller = controller;
@@ -92,7 +93,7 @@ public class Game implements Screen {
 			//debug_camera.position.set(Space.player().get_body().getPosition().x, 
 			//						  Space.player().get_body().getPosition().y, 
 			//						  0);
-			debug_camera.zoom = 0.05f;
+			//debug_camera.zoom = 0.05f;
 		    debug_renderer.render( Space.instance().World(), debug_camera.combined );
 		    
 		}
@@ -106,8 +107,7 @@ public class Game implements Screen {
 					0);
 			
 		}
-
-		env_cam.zoom = 2.5f;
+		env_cam.zoom = 10.5f;
 
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.O))

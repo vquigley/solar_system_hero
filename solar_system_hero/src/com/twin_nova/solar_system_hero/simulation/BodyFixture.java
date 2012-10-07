@@ -20,6 +20,12 @@ public abstract class BodyFixture {
 		this.angle_offset = angle_offset;
 		current_health = get_health();
 		
+		FixtureDef fixture_def = get_fixture_def();
+		fixture_def.filter.categoryBits = owner.get_weapon_category();
+		fixture_def.filter.maskBits = owner.get_weapon_mask();
+		set_fixture(owner.get_body().createFixture(fixture_def));
+		get_fixture().setUserData(this);
+		
 		if (texture != null) {
 			sprite = new Sprite(Global.textures.get(texture), 
 								getSpriteOriginX(), 
@@ -27,18 +33,17 @@ public abstract class BodyFixture {
 								getSpriteBoundWidth(), 
 								getSpriteBoundHeight());
 						
-			sprite.setOrigin(getSpriteBoundWidth() * owner.getScaleFactor() / 2 , 
-						   	 getSpriteBoundHeight() * owner.getScaleFactor() / 2 );
+			sprite.setOrigin(getSpriteRenderedWidth() * owner.getScaleFactor() / 2 , 
+					getSpriteRenderedHeight() * owner.getScaleFactor() / 2 );
 
-			sprite.setSize(getSpriteBoundWidth() * owner.getScaleFactor(), 
-					   getSpriteBoundHeight() * owner.getScaleFactor());
+			sprite.setSize(getSpriteRenderedWidth() * owner.getScaleFactor(), 
+					getSpriteRenderedHeight() * owner.getScaleFactor());
 		}
-		
-		FixtureDef fixture_def = get_fixture_def();
-		fixture_def.filter.categoryBits = owner.get_weapon_category();
-		fixture_def.filter.maskBits = owner.get_weapon_mask();
-		set_fixture(owner.get_body().createFixture(fixture_def));
-		get_fixture().setUserData(this);
+	}
+	
+	protected float getRadius()
+	{
+		return (sprite.getHeight() / 2);
 	}
 	
 	protected abstract int getSpriteBoundHeight();
@@ -54,6 +59,14 @@ public abstract class BodyFixture {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	protected float getSpriteRenderedWidth() {
+		return getSpriteBoundWidth();
+	}
+
+	protected float getSpriteRenderedHeight() {
+		return getSpriteBoundHeight();
+	}
 
 	public Vector2 get_world_center() {
 		Vector2 world_position = body_offset.cpy();
@@ -61,8 +74,8 @@ public abstract class BodyFixture {
 		Transform transform = getOwner().body.getTransform();
 		transform.mul(world_position);
 		
-		world_position.x -=  Global.to_meters(getSpriteBoundWidth() / 2) * owner.getScaleFactor();
-		world_position.y -=  Global.to_meters(getSpriteBoundHeight() / 2) * owner.getScaleFactor();
+		world_position.x -=  Global.to_meters(getSpriteRenderedWidth() / 2) * owner.getScaleFactor();
+		world_position.y -=  Global.to_meters(getSpriteRenderedHeight() / 2) * owner.getScaleFactor();
 	
 		return world_position;
 	}

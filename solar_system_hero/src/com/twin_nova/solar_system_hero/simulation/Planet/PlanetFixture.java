@@ -8,20 +8,14 @@ import com.twin_nova.solar_system_hero.simulation.SpaceBody;
 import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
 
-public class PlanetFixture extends BodyFixture {
+public abstract class PlanetFixture extends BodyFixture {
 
-	private int spriteBoundsX;
-	private int spriteBoundsY;
 
 	protected PlanetFixture(SpaceBody owner, 
 							Texture texture,
-							float part_mass,
-							 int spriteBoundsX,
-							 int spriteBoundsY) {
+							float part_mass) {
 		super(owner, texture, new Vector2(0,0), 0f);
 		this.part_mass = part_mass;
-		this.spriteBoundsX = spriteBoundsX;
-		this.spriteBoundsY = spriteBoundsY;
 	}
 
 	@Override
@@ -32,7 +26,7 @@ public class PlanetFixture extends BodyFixture {
 	@Override
 	public FixtureDef get_fixture_def() {
 		CircleShape shape = new CircleShape();
-		shape.setRadius(Global.to_meters(sprite.getHeight() / 2));
+		shape.setRadius(getRadius() * Planet.objectSizeScale);
 
 		FixtureDef fixture_def = new FixtureDef();
 		fixture_def.shape = shape;
@@ -41,6 +35,14 @@ public class PlanetFixture extends BodyFixture {
 		fixture_def.restitution = 0f;
 
 		return fixture_def;
+	}
+	
+	protected float getSpriteRenderedWidth() {
+		return Global.to_pixels(getRadius() * Planet.objectSizeScale * 2);
+	}
+
+	protected float getSpriteRenderedHeight() {
+		return Global.to_pixels(getRadius() * Planet.objectSizeScale * 2);
 	}
 
 	@Override
@@ -54,17 +56,4 @@ public class PlanetFixture extends BodyFixture {
 	}
 	
 	private float part_mass;
-
-	@Override
-	protected int getSpriteBoundHeight() {
-		// TODO Auto-generated method stub
-		return spriteBoundsY;
-	}
-
-	@Override
-	protected int getSpriteBoundWidth() {
-		// TODO Auto-generated method stub
-		return spriteBoundsX;
-	}
-
 }

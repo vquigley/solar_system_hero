@@ -23,8 +23,8 @@ public class LazerFixture extends WeaponFixture {
 	@Override
 	public FixtureDef get_fixture_def() {
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(Global.to_meters(get_sprite().getHeight()), 
-					   Global.to_meters(5));
+		shape.setAsBox(Global.to_meters(getSpriteRenderedWidth() * owner.getScaleFactor()), 
+					   Global.to_meters(getSpriteRenderedHeight() * owner.getScaleFactor()));
 		
 		
 		FixtureDef fixture_def = new FixtureDef();
@@ -64,7 +64,7 @@ public class LazerFixture extends WeaponFixture {
 	@Override
 	protected int getSpriteBoundHeight() {
 		// TODO Auto-generated method stub
-		return 64;
+		return 5;
 	}
 
 	@Override

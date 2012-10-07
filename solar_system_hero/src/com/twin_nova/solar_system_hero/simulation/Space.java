@@ -11,8 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.twin_nova.solar_system_hero.simulation.Planet.Planet;
-import com.twin_nova.solar_system_hero.simulation.Planet.PlanetBuilder;
+import com.twin_nova.solar_system_hero.simulation.Planet.*;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.EnemyPortal;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipBuilder;
@@ -22,6 +21,8 @@ import com.twin_nova.utilities.Score;
 import com.twin_nova.utilities.TextureCache.Texture;
 
 public class Space {	
+	public static final float EarthRotationTime = 15; // seconds
+
 	private World world = new World(new Vector2(0, 0), false);
 	
 	public short player_category = 1;
@@ -32,10 +33,10 @@ public class Space {
 	
 	// All solar system masses are defined in terms of earth masses, which is defined as kgs.
 	public final float earth_mass 		= 1000;
-	public final float earth_year		= 30;
+	public final float earth_year		= 120; // in seconds.
 	
-	public final float half_size_x = 50f;
-	public final float half_size_y = 50f;
+	public final float half_size_x = 300f;
+	public final float half_size_y = 300f;
 	
 	private Sprite[] stars = null;
 	SpaceContact contact_listener = new SpaceContact();
@@ -88,7 +89,7 @@ public class Space {
 		self = this;
 		begin_date = new Date();
 		// Create stars.
-		float stars_per_meter = 0.5f;
+		float stars_per_meter = 0.01f;
 		
 		//sprite.setRotation(start_direction);
 		stars = new Sprite[(int)(stars_per_meter * half_size_x * 2 * half_size_y * 2)];
@@ -108,16 +109,6 @@ public class Space {
 			
 			Vector2 start_point = new Vector2(x_pos, y_pos);
 
-			
-	//		Gdx.app.log(String.format("Star 1 X %f - Y %f", start_point.x, start_point.y), "");
-	//		Gdx.app.log(String.format("Star 2 X %f - Y %f", start_point.add(star_size, 0).x, start_point.add(star_size, 0).y), "");
-	//		Gdx.app.log(String.format("Star 3 X %f - Y %f", start_point.add(star_size / 2, star_size).x, start_point.add(star_size / 2, star_size).y), "");
-			/*stars[i] = MeshFactory.triangle(start_point, 
-											star_colour, 
-											new Vector2(start_point.x + star_size, start_point.y), 
-											star_colour, 
-											new Vector2(start_point.x + (star_size / 2), start_point.y + star_size),
-											star_colour);*/
 			stars[i] = new Sprite(Global.textures.get(Texture.star));
 			stars[i].setPosition(start_point.x, start_point.y);
 			stars[i].setScale(scale);
@@ -125,13 +116,15 @@ public class Space {
 			
 			if (scale > scale_max) {
 				scale = scale_min;
-			}
-			
+			}		
 			
 		}
 		
 		// Add planets, their position in space is dependent on the system time.
-		//planets.add(PlanetBuilder.build_earth());
+		planets.add(new Mercury());
+		planets.add(new Venus());
+		planets.add(new Earth());
+		planets.add(new Mars());
 		
 		player = ShipBuilder.build_hero(new Vector2(5, 5), 0);
 		
@@ -146,7 +139,7 @@ public class Space {
 	            			Gdx.files.internal("particle/images"));
 		
 
-		//portals.add(new EnemyPortal(new Vector2(10, 0), 180));
+		portals.add(new EnemyPortal(new Vector2(10, 0), 180));
 	}
 	
 	public void update() {
@@ -160,6 +153,8 @@ public class Space {
 		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
 			// Reset.
 			player.body.setTransform(0, 0, 0);
+			player.body.setLinearVelocity(0, 0);
+			player.body.setAngularVelocity(0);
 		}
 		
 		for (Planet planet : planets) {
