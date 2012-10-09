@@ -1,19 +1,17 @@
 package com.twin_nova.solar_system_hero.simulation.Planet;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.twin_nova.solar_system_hero.simulation.Space;
-import com.twin_nova.utilities.Global;
-import com.twin_nova.utilities.TextureCache.Texture;
+import com.twin_nova.utilities.Global;;
 
 public class Planet extends OrbitingObject {
 	
 	private GravityWell well;
 	private float rotationTime;
 	private long start_time;
-	private static float orbitScale = 1.4f;
-	public static float objectSizeScale = 11f;
+	public static float orbitScale = Global.objectSizeFactor;
+	public static float objectSizeScale = Global.orbitSizeFactor;
 
 	protected Planet(Vector2 ellipse_center,
 					 Vector2 ellipse_limits,

@@ -14,5 +14,4 @@ public class Mars extends Planet {
 			
 			new MarsFixture(this);
 	}
-
 }

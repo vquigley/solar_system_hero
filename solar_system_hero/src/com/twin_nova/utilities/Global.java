@@ -54,4 +54,12 @@ public class Global {
 	public static float step_delta() {
 		return step_delta;
 	}
+
+	public static float ScaleDistance(float input) {
+		// TODO Auto-generated method stub
+		return objectSizeFactor * input;
+	}
+	
+	public static float objectSizeFactor = 1.4f;
+	public static float orbitSizeFactor = 11f;
 }

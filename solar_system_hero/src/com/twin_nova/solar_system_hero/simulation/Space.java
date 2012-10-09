@@ -35,8 +35,8 @@ public class Space {
 	public final float earth_mass 		= 1000;
 	public final float earth_year		= 120; // in seconds.
 	
-	public final float half_size_x = 300f;
-	public final float half_size_y = 300f;
+	public final float half_size_x = Global.ScaleDistance(300f);
+	public final float half_size_y = Global.ScaleDistance(300f);
 	
 	private Sprite[] stars = null;
 	SpaceContact contact_listener = new SpaceContact();
@@ -89,7 +89,7 @@ public class Space {
 		self = this;
 		begin_date = new Date();
 		// Create stars.
-		float stars_per_meter = 0.01f;
+		float stars_per_meter = 0.005f;
 		
 		//sprite.setRotation(start_direction);
 		stars = new Sprite[(int)(stars_per_meter * half_size_x * 2 * half_size_y * 2)];
@@ -139,7 +139,7 @@ public class Space {
 	            			Gdx.files.internal("particle/images"));
 		
 
-		portals.add(new EnemyPortal(new Vector2(10, 0), 180));
+		portals.add(new EnemyPortal(new Vector2(Global.ScaleDistance(250), 0), 180));
 	}
 	
 	public void update() {
