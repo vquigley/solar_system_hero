@@ -73,8 +73,8 @@ public abstract class Weapon extends ShipPart {
 	public FixtureDef get_fixture_def() {
 		if (fixture_def == null) {
 			PolygonShape shape = new PolygonShape();
-			shape.setAsBox(Global.to_meters(getSpriteRenderedWidth() * owner.getScaleFactor()), 
-						   Global.to_meters(getSpriteRenderedHeight() * owner.getScaleFactor()), 
+			shape.setAsBox(Global.to_meters(getSpriteRenderedWidth()), 
+						   Global.to_meters(getSpriteRenderedHeight()), 
 						   get_body_offset(),
 						   0);
 			

@@ -17,6 +17,11 @@ public abstract class SpaceBody {
 		body = Space.instance().World().createBody(bd);
 	}
 	
+	public float Scale(float input) {
+		// TODO Auto-generated method stub
+		return input * getScaleFactor();
+	}
+	
 	public void update() {
 		Iterator<Fixture> f_it = body.getFixtureList().iterator();
 		

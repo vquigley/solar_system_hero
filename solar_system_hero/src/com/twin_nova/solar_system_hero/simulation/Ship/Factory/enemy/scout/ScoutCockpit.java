@@ -27,7 +27,7 @@ public class ScoutCockpit extends ShipPart {
 	@Override
 	public FixtureDef get_fixture_def() {
 		CircleShape shape = new CircleShape();
-		shape.setRadius(Global.to_meters(sprite.getHeight() / 2));
+		shape.setRadius(Global.to_meters(getSpriteRenderedWidth() / 2));
 		
 
 		FixtureDef fixture_def = new FixtureDef();
@@ -47,13 +47,13 @@ public class ScoutCockpit extends ShipPart {
 	@Override
 	protected int getSpriteBoundHeight() {
 		// TODO Auto-generated method stub
-		return 64;
+		return 512;
 	}
 
 	@Override
 	protected int getSpriteBoundWidth() {
 		// TODO Auto-generated method stub
-		return 64;
+		return 512;
 	}
 
 }

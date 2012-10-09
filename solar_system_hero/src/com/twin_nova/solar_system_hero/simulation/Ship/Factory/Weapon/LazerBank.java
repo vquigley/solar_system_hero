@@ -35,13 +35,11 @@ public class LazerBank extends Weapon {
 
 	@Override
 	protected int getSpriteBoundHeight() {
-		// TODO Auto-generated method stub
 		return 16;
 	}
 
 	@Override
 	protected int getSpriteBoundWidth() {
-		// TODO Auto-generated method stub
 		return 16;
 	}
 	

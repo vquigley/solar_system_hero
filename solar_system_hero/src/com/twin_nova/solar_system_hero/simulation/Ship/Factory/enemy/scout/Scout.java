@@ -18,6 +18,8 @@ public class Scout extends Ship {
 	
 	public Scout(Vector2 start_coordinates, float start_direction, ShipControl control) {
 		super(start_coordinates, start_direction, control);
+		build_cockpit();
+		build_weapons();
 	}
 
 	@Override
@@ -34,8 +36,11 @@ public class Scout extends Ship {
 
 	@Override
 	public ArrayList<Weapon> build_weapons() {
-		weapons_a.add(new LazerBank(this, new Vector2(Global.to_meters(40),Global.to_meters(10)), 0));
-		weapons_a.add(new LazerBank(this, new Vector2(Global.to_meters(40),Global.to_meters(-10)), 0));
+		weapons_a.add(new LazerBank(this, new Vector2(Scale(Global.to_meters(40)),
+													 Scale(Global.to_meters(10))), 0));
+		
+		weapons_a.add(new LazerBank(this, new Vector2(Scale(Global.to_meters(40)),
+				 Scale(Global.to_meters(-10))), 0));
 		
 		for (Weapon weapon : weapons_a) {
 			weapon.get_fixture().getFilterData().categoryBits = get_weapon_category();
@@ -43,6 +48,10 @@ public class Scout extends Ship {
 		} 
 		
 		return weapons_a;
+	}
+	
+	public float getScaleFactor() {
+		return 0.4f;
 	}
 
 	@Override

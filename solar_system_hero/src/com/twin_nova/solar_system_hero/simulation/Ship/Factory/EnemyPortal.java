@@ -14,6 +14,11 @@ public class EnemyPortal extends SpaceBody {
 	
 	long last_action = Long.MAX_VALUE;
 	ArrayList<Ship> exiting_ships = new ArrayList<Ship>();
+	
+	public float getScaleFactor() {
+		return 4f;
+	}
+
 
 	public EnemyPortal(Vector2 start_coordinates, float start_direction) {
 		super(start_coordinates, start_direction);

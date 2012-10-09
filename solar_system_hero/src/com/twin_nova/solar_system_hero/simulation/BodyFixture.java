@@ -33,17 +33,17 @@ public abstract class BodyFixture {
 								getSpriteBoundWidth(), 
 								getSpriteBoundHeight());
 						
-			sprite.setOrigin(getSpriteRenderedWidth() * owner.getScaleFactor() / 2 , 
-					getSpriteRenderedHeight() * owner.getScaleFactor() / 2 );
+			sprite.setOrigin(getSpriteRenderedWidth() / 2, 
+							 getSpriteRenderedHeight() / 2);
 
-			sprite.setSize(getSpriteRenderedWidth() * owner.getScaleFactor(), 
-					getSpriteRenderedHeight() * owner.getScaleFactor());
+			sprite.setSize(getSpriteRenderedWidth(), 
+						   getSpriteRenderedHeight());
 		}
 	}
 	
 	protected float getRadius()
 	{
-		return (sprite.getHeight() / 2);
+		return (getSpriteRenderedHeight() / 2);
 	}
 	
 	protected abstract int getSpriteBoundHeight();
@@ -61,11 +61,11 @@ public abstract class BodyFixture {
 	}
 	
 	protected float getSpriteRenderedWidth() {
-		return getSpriteBoundWidth();
+		return getSpriteBoundWidth() * owner.getScaleFactor();
 	}
 
 	protected float getSpriteRenderedHeight() {
-		return getSpriteBoundHeight();
+		return getSpriteBoundHeight() * owner.getScaleFactor();
 	}
 
 	public Vector2 get_world_center() {
@@ -74,8 +74,8 @@ public abstract class BodyFixture {
 		Transform transform = getOwner().body.getTransform();
 		transform.mul(world_position);
 		
-		world_position.x -=  Global.to_meters(getSpriteRenderedWidth() / 2) * owner.getScaleFactor();
-		world_position.y -=  Global.to_meters(getSpriteRenderedHeight() / 2) * owner.getScaleFactor();
+		world_position.x -=  Global.to_meters(getSpriteRenderedWidth() / 2);
+		world_position.y -=  Global.to_meters(getSpriteRenderedHeight() / 2);
 	
 		return world_position;
 	}
