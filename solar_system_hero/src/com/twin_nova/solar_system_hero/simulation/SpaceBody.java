@@ -2,10 +2,12 @@ package com.twin_nova.solar_system_hero.simulation;
 
 import java.util.Iterator;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.twin_nova.utilities.Global;
 
 public abstract class SpaceBody {
 	protected Body body;
@@ -20,6 +22,26 @@ public abstract class SpaceBody {
 	public float Scale(float input) {
 		// TODO Auto-generated method stub
 		return input * getScaleFactor();
+	}
+	
+	public float face(SpaceBody other)
+	{
+		float bodyAngle = body.getAngle() -  Global.to_radians(90);
+	    Vector2 toTarget = other.body.getPosition().add(body.getPosition().mul(-1));
+	    float desiredAngle = (float)Math.atan2( -toTarget.x, toTarget.y );
+	    
+	    body.setAngularVelocity(0);
+	    
+	    float totalRotation = desiredAngle - bodyAngle;
+	    while ( totalRotation < -Global.to_radians(180)) totalRotation += Global.to_radians(360);
+	    while ( totalRotation >  Global.to_radians(180)) totalRotation -= Global.to_radians(360);
+	    
+	    float change = Global.to_radians(1); //allow 1 degree rotation per time step
+	    float newAngle = bodyAngle + Math.min( change, Math.max(-change, totalRotation));
+	    
+	    body.applyTorque( totalRotation < 0 ? -50 : 50 ); 
+	    
+	    return Math.abs(totalRotation);
 	}
 	
 	public void update() {
