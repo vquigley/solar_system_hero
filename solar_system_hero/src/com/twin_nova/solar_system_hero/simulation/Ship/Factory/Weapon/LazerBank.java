@@ -29,7 +29,7 @@ public class LazerBank extends Weapon {
 	}
 
 	@Override
-	protected float get_mass() {
+	public float get_mass() {
 		return part_mass;
 	}
 

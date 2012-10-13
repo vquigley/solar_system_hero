@@ -40,7 +40,7 @@ public class ScoutCockpit extends ShipPart {
 	}
 
 	@Override
-	protected float get_mass() {
+	public float get_mass() {
 		return part_mass;
 	}
 

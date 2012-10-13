@@ -46,7 +46,7 @@ public abstract class PlanetFixture extends BodyFixture {
 	}
 
 	@Override
-	protected float get_mass() {
+	public float get_mass() {
 		return part_mass;
 	}
 

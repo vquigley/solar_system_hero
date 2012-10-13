@@ -3,11 +3,18 @@ package com.twin_nova.solar_system_hero.simulation.Ship.Factory.Hero;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.twin_nova.solar_system_hero.simulation.Space;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipControl;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 
 public class PlayerControl extends ShipControl {
 
+	float registerChangeTimeout = 100f;
+	
+	float lastLeftKeyRegistered = 0;
+	float lastRightKeyRegistered = 0;
+	float lastForwardKeyRegistered = 0;
+	
 	public void update(Ship ship)
 	{
 		handle_turn((Hero)ship);
@@ -26,20 +33,35 @@ public class PlayerControl extends ShipControl {
 		}
 	}
 
-	private static void handle_thrust(Hero ship) {
+	private void handle_thrust(Hero ship) {
 		
-		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+		if ((Space.instance().get_space_time() - lastForwardKeyRegistered) < registerChangeTimeout)
+		{
+			// do nothing.
+		}
+		else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			ship.forward();
+			lastForwardKeyRegistered = Space.instance().get_space_time();
 		}		
 	}
 
-	private static void handle_turn(Hero ship) {
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+	private void handle_turn(Hero ship) {
+		if ((Space.instance().get_space_time() - lastLeftKeyRegistered) < registerChangeTimeout)
+		{
+			// do nothing.
+		}
+		else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 			ship.turnLeft();
+			lastLeftKeyRegistered = Space.instance().get_space_time();
 		}
 			
-		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+		if ((Space.instance().get_space_time() - lastRightKeyRegistered) < registerChangeTimeout)
+		{
+			// do nothing.
+		}
+		else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 			ship.turnRight();
+			lastRightKeyRegistered = Space.instance().get_space_time();
 		}
 	}
 	

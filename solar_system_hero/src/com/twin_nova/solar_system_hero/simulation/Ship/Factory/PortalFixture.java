@@ -66,7 +66,7 @@ public class PortalFixture extends BodyFixture {
 	}
 
 	@Override
-	protected float get_mass() {
+	public float get_mass() {
 		return 1;
 	}
 	

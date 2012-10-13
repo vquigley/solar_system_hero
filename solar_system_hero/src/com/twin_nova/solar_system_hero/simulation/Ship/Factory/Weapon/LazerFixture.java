@@ -37,7 +37,7 @@ public class LazerFixture extends WeaponFixture {
 	}
 
 	@Override
-	protected float get_mass() {
+	public float get_mass() {
 		return part_mass;
 	}
 	

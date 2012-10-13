@@ -15,8 +15,8 @@ public class Hero extends Ship {
 
 	private static float top_speed = 20.0f;
 	private static float top_torque = 5.0f;
-	private static float impulse = 3f;
-	private static float torque = 2;
+	private static float impulse =2f;
+	private static float torque = 0.5f;
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
 			

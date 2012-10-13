@@ -140,7 +140,7 @@ public abstract class BodyFixture {
 	protected Sprite sprite = null;
 	public abstract int get_health();
 	public abstract FixtureDef get_fixture_def();
-	protected abstract float get_mass();
+	public abstract float get_mass();
 	
 	protected Vector2 body_offset;
 	protected SpaceBody owner;

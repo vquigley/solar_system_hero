@@ -37,8 +37,8 @@ public abstract class Ship extends SpaceBody {
 			((BodyFixture)f.getUserData()).update();
 		}
 		
-		//maintainTopSpeed();
-		//maintainTorque();
+		maintainTopSpeed();
+		maintainTorque();
 	}
 	
 	protected BodyDef get_body_definition(Vector2 start_coordinates, 
@@ -73,14 +73,17 @@ public abstract class Ship extends SpaceBody {
 	
 	public void forward()
 	{
-		get_body().applyLinearImpulse(new Vector2((float)Math.cos(get_body().getAngle()) * forwardImpulse(),
-				   					  				(float)Math.sin(get_body().getAngle()) * forwardImpulse()), get_body().getWorldCenter());	
+		//if (Math.abs(get_speed()) < top_speed())
+		{
+			get_body().applyLinearImpulse(new Vector2((float)Math.cos(get_body().getAngle()) * forwardImpulse(),
+				   					  					(float)Math.sin(get_body().getAngle()) * forwardImpulse()), get_body().getWorldCenter());	
+		}
 	}
 	
 	public void turnLeft()
 	{
 		// stop the turning if were close to zero and turning in the opposite direction.
-		if ((get_body().getAngularVelocity() >= 0) || (get_body().getAngularVelocity() < -2))
+		if ((get_body().getAngularVelocity() >= 0) || (get_body().getAngularVelocity() < -1))
 		{
 			get_body().applyAngularImpulse(torque());
 		}
@@ -93,7 +96,7 @@ public abstract class Ship extends SpaceBody {
 	public void turnRight()
 	{
 		// stop the turning if were close to zero and turning in the opposite direction.
-		if ((get_body().getAngularVelocity() <= 0) || (get_body().getAngularVelocity() > 2))
+		if ((get_body().getAngularVelocity() <= 0) || (get_body().getAngularVelocity() > 1))
 		{
 			get_body().applyAngularImpulse(-torque());
 		}
@@ -101,25 +104,26 @@ public abstract class Ship extends SpaceBody {
 		{
 			get_body().setAngularVelocity(0);
 		}
+		Gdx.app.log("Math.abs(get_body().getAngularVelocity())", 
+				String.format("%s", get_body().getAngularVelocity()));
 	}
 	
 	public void maintainTopSpeed()
 	{
-		if (Math.abs(get_speed()) > top_speed())
+		if ((Math.abs(get_speed()) > top_speed()) && (get_speed() > 0))
 		{
-			get_body().applyLinearImpulse(get_body().getLinearVelocity().mul(-1),
-					   					  get_body().getWorldCenter());
+			
 		}
 	}
 	
 	public void maintainTorque()
-	{
-		Gdx.app.log("Math.abs(get_body().getAngularVelocity())", 
-					String.format("%s", get_body().getAngularVelocity()));
+	{		
+		float vel = get_body().getAngularVelocity();
 		
-		if (Math.abs(get_body().getAngularVelocity()) >top_torque())
+		if (Math.abs(vel) >top_torque())
 		{
-			get_body().applyAngularImpulse(- get_body().getAngularVelocity());
+			int dir = (vel > 0) ? 1 : -1;
+			get_body().setAngularVelocity(top_torque() * dir);
 		}
 	}
 	
