@@ -3,6 +3,7 @@ package com.twin_nova.solar_system_hero.simulation.Ship.Factory;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -35,6 +36,9 @@ public abstract class Ship extends SpaceBody {
 			Fixture f = f_it.next();
 			((BodyFixture)f.getUserData()).update();
 		}
+		
+		//maintainTopSpeed();
+		//maintainTorque();
 	}
 	
 	protected BodyDef get_body_definition(Vector2 start_coordinates, 
@@ -65,17 +69,82 @@ public abstract class Ship extends SpaceBody {
 		}
 		
 		update();
-	}   
+	} 
+	
+	public void forward()
+	{
+		get_body().applyLinearImpulse(new Vector2((float)Math.cos(get_body().getAngle()) * forwardImpulse(),
+				   					  				(float)Math.sin(get_body().getAngle()) * forwardImpulse()), get_body().getWorldCenter());	
+	}
+	
+	public void turnLeft()
+	{
+		// stop the turning if were close to zero and turning in the opposite direction.
+		if ((get_body().getAngularVelocity() >= 0) || (get_body().getAngularVelocity() < -2))
+		{
+			get_body().applyAngularImpulse(torque());
+		}
+		else
+		{
+			get_body().setAngularVelocity(0);
+		}
+	}
+	
+	public void turnRight()
+	{
+		// stop the turning if were close to zero and turning in the opposite direction.
+		if ((get_body().getAngularVelocity() <= 0) || (get_body().getAngularVelocity() > 2))
+		{
+			get_body().applyAngularImpulse(-torque());
+		}
+		else
+		{
+			get_body().setAngularVelocity(0);
+		}
+	}
+	
+	public void maintainTopSpeed()
+	{
+		if (Math.abs(get_speed()) > top_speed())
+		{
+			get_body().applyLinearImpulse(get_body().getLinearVelocity().mul(-1),
+					   					  get_body().getWorldCenter());
+		}
+	}
+	
+	public void maintainTorque()
+	{
+		Gdx.app.log("Math.abs(get_body().getAngularVelocity())", 
+					String.format("%s", get_body().getAngularVelocity()));
+		
+		if (Math.abs(get_body().getAngularVelocity()) >top_torque())
+		{
+			get_body().applyAngularImpulse(- get_body().getAngularVelocity());
+		}
+	}
+	
+	public abstract float forwardImpulse();
+	public abstract float torque();
 	
 	public abstract ShipPart build_cockpit();
 	public abstract ShipPart build_engine();
 	public abstract ArrayList<Weapon> build_weapons();
 	
 	public abstract float top_speed();
+	public abstract float top_torque();
+	
 	public abstract void fire_a();
 	public abstract void fire_b();
 
 	public int getKillValue() {
 		return 10;
+	}
+
+	public void slowDown() {
+		if (Math.abs(get_speed()) > 0)
+		{
+			get_body().applyForceToCenter((float)Math.cos(get_body().getAngle()) * -forwardImpulse(),
+						  (float)Math.sin(get_body().getAngle()) * -forwardImpulse());	
+		}
 	}
 }

@@ -16,15 +16,18 @@ public class ScoutAI extends ShipControl {
 		case AttackEarth:
 			break;
 		case AttackHero:
+			
 			float angle = ship.face(Space.instance().player());
+		
 			if (angle < Global.to_radians(10))
 			{
-				ship.get_body().setLinearVelocity(ship.get_force(25f));
+				ship.forward();
 			}
 			else
 			{
-				ship.get_body().setLinearVelocity(ship.get_force(0f));
+				ship.slowDown();
 			}
+			
 			break;
 		case Destroyed:
 			break;
@@ -37,9 +40,6 @@ public class ScoutAI extends ShipControl {
 		case GroupMind:
 			break;
 		case Patrol:
-			ship.get_body().setLinearVelocity(ship.get_force(5f));
-			ship.get_body().setAngularVelocity(1f);
-			ship.fire_a();
 			break;
 		default:
 			break;

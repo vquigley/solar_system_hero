@@ -13,6 +13,9 @@ import com.twin_nova.utilities.Global;
 public class Scout extends Ship {
 
 	private static float top_speed = 3.0f;
+	private static float top_torque = 20.0f;
+	private static float impulse = 20f;
+	private static float torque = 20f;
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
 	
@@ -70,5 +73,20 @@ public class Scout extends Ship {
 	public void fire_b() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public float forwardImpulse() {
+		return impulse;
+	}
+
+	@Override
+	public float torque() {
+		return torque;
+	}
+
+	@Override
+	public float top_torque() {
+		return top_torque;
 	}
 }
