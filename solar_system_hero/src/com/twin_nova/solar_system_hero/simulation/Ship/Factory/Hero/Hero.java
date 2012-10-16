@@ -14,9 +14,9 @@ import com.twin_nova.utilities.Global;
 public class Hero extends Ship {
 
 	private static float top_speed = 20.0f;
-	private static float top_torque = 5.0f;
-	private static float impulse =2f;
-	private static float torque = 0.5f;
+	private static float top_torque = 3.0f;
+	private static float impulse = 1.5f;
+	private static float torque = 0.3f;
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
 			

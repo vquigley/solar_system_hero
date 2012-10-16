@@ -14,7 +14,7 @@ public class Scout extends Ship {
 
 	private static float top_speed = 3.0f;
 	private static float top_torque = 20.0f;
-	private static float impulse = 20f;
+	private static float impulse = 1f;
 	private static float torque = 20f;
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
@@ -39,11 +39,11 @@ public class Scout extends Ship {
 
 	@Override
 	public ArrayList<Weapon> build_weapons() {
-		weapons_a.add(new LazerBank(this, new Vector2(Scale(Global.to_meters(40)),
-													 Scale(Global.to_meters(10))), 0));
+		weapons_a.add(new LazerBank(this, new Vector2(Scale(Global.to_meters(200)),
+													 Scale(Global.to_meters(100))), 0));
 		
-		weapons_a.add(new LazerBank(this, new Vector2(Scale(Global.to_meters(40)),
-				 Scale(Global.to_meters(-10))), 0));
+		weapons_a.add(new LazerBank(this, new Vector2(Scale(Global.to_meters(200)),
+				 Scale(Global.to_meters(-100))), 0));
 		
 		for (Weapon weapon : weapons_a) {
 			weapon.get_fixture().getFilterData().categoryBits = get_weapon_category();

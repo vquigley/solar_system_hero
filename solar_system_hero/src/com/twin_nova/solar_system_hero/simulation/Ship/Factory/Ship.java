@@ -127,6 +127,24 @@ public abstract class Ship extends SpaceBody {
 		}
 	}
 	
+	public float face(SpaceBody other)
+	{
+		float bodyAngle = body.getAngle() -  Global.to_radians(90);
+	    Vector2 toTarget = other.get_body().getPosition().add(body.getPosition().mul(-1));
+	    float desiredAngle = (float)Math.atan2( -toTarget.x, toTarget.y );
+	    
+	    body.setAngularVelocity(0);
+	    
+	    float totalRotation = desiredAngle - bodyAngle;
+	    while ( totalRotation < -Global.to_radians(180)) totalRotation += Global.to_radians(360);
+	    while ( totalRotation >  Global.to_radians(180)) totalRotation -= Global.to_radians(360);
+	   
+		int dir = (totalRotation > 0) ? 1 : -1;
+		get_body().applyAngularImpulse( dir * torque());
+	    
+	    return Math.abs(totalRotation);
+	}
+	
 	public abstract float forwardImpulse();
 	public abstract float torque();
 	
@@ -147,8 +165,8 @@ public abstract class Ship extends SpaceBody {
 	public void slowDown() {
 		if (Math.abs(get_speed()) > 0)
 		{
-			get_body().applyForceToCenter((float)Math.cos(get_body().getAngle()) * -forwardImpulse(),
-						  (float)Math.sin(get_body().getAngle()) * -forwardImpulse());	
+			get_body().applyLinearImpulse(new Vector2((float)Math.cos(get_body().getAngle()) * -forwardImpulse(),
+	  					(float)Math.sin(get_body().getAngle()) * -forwardImpulse()), get_body().getWorldCenter());
 		}
 	}
 }

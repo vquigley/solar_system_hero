@@ -41,7 +41,7 @@ public class EnemyPortal extends SpaceBody {
 	{
 		super.update();
 		
-		//new_ship();
+		new_ship();
 		
 		Iterator<Ship> ship_it = exiting_ships.iterator();
 		

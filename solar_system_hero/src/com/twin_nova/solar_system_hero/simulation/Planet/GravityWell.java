@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.twin_nova.solar_system_hero.simulation.Space;
 import com.twin_nova.solar_system_hero.simulation.SpaceBody;
 import com.twin_nova.solar_system_hero.simulation.BodyFixture;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Ship;
 import com.twin_nova.utilities.Console;
 
 public class GravityWell {
@@ -25,9 +26,19 @@ public class GravityWell {
 	
 	public void update() {
 		
+		applyGravity(Space.instance().player());
+		
+		for (Ship ship : Space.instance().ships)
+		{
+			applyGravity(ship);
+		}
+	}
+	
+	void applyGravity(Ship ship)
+	{
 		Vector2 planet_distance = new Vector2();
 		planet_distance.add(affected_body.get_body().getPosition());
-		planet_distance.sub(Space.instance().player().get_body().getPosition());
+		planet_distance.sub(ship.get_body().getPosition());
 		float planet_radius = 0f;
 		float planet_mass = 0f;
 		
@@ -44,7 +55,7 @@ public class GravityWell {
 			planet_distance = planet_distance.nor();
 			float vec_sum = Math.abs(planet_distance.x) + Math.abs(planet_distance.y);
 			planet_distance.mul((1/vec_sum) * planet_radius / final_distance);
-			Space.instance().player().get_body().applyForceToCenter((planet_distance).mul((massPeriod * 5)));
+			ship.get_body().applyForceToCenter((planet_distance).mul((massPeriod * 2)));
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package com.twin_nova.solar_system_hero.screens;
 
+import java.util.Hashtable;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -37,21 +39,14 @@ public class Game implements Screen {
 		env_cam.zoom = env_camera_zoom;
 		
 		
-		Boolean debug_view = true;
-		
-		if (debug_view != false) {
-			debug_camera =  new OrthographicCamera(Gdx.graphics.getWidth(), 
-					 							   Gdx.graphics.getHeight());
-			batch.setProjectionMatrix(debug_camera.combined);
-			debug_camera.update();
-			debug_camera.zoom = debug_camera_zoom;
-		}
+		debug_view = false;
 		
 		this.controller = controller;
 	}
 	
 	float debug_camera_zoom = 0.175f;
 	float env_camera_zoom = 10.5f;
+	private boolean debug_view;
 
 	@Override
 	public void dispose() {
@@ -63,6 +58,17 @@ public class Game implements Screen {
 
 	@Override
 	public void pause() {
+	}
+	
+	public void debugCamera()
+	{
+		if ((debug_view != false) && (debug_camera == null)) {
+			debug_camera =  new OrthographicCamera(Gdx.graphics.getWidth(), 
+					 							   Gdx.graphics.getHeight());
+			batch.setProjectionMatrix(debug_camera.combined);
+			debug_camera.update();
+			debug_camera.zoom = debug_camera_zoom;
+		}
 	}
 
 	@Override
@@ -89,7 +95,7 @@ public class Game implements Screen {
 		// Follow the player.
 		
 		
-		if (debug_camera != null)
+		if (debug_view)
 		{
 			debug_camera.update();
 			batch.setProjectionMatrix(debug_camera.combined);
@@ -125,11 +131,17 @@ public class Game implements Screen {
 			debug_camera_zoom -= debug_zoom_increment;
 			env_camera_zoom -= env_zoom_increment;
 		}
-		
 
 		if (space.player() == null) {
 			controller.setScreen(new EndGame(controller));
 		}
+		
+		if (isKeyPressed(Input.Keys.U))
+		{
+			debug_view = (debug_view == false);
+		}
+		
+		debugCamera();
 	}	
 	
 	float env_zoom_increment = 0.06f;
@@ -149,4 +161,24 @@ public class Game implements Screen {
 		debug_camera = new OrthographicCamera(arg0, arg1);
 		space.resize(arg0, arg1);
 	}
+	
+	public static boolean isKeyPressed(Integer key)
+	{
+		boolean keyPressed = false;
+		
+		Long lastPressed = timeLastKeyPressed.get(key);
+		
+		if ((Gdx.input.isKeyPressed(key)) &&
+			((lastPressed == null) ||
+			 ((Space.instance().get_space_time() - lastPressed) > registerChangeTimeout)))
+		{
+			keyPressed = true;
+			timeLastKeyPressed.put(key, Space.instance().get_space_time());
+		}
+		
+		return keyPressed;
+	}
+	
+	static Hashtable<Integer, Long> timeLastKeyPressed = new Hashtable<Integer, Long>(); 
+	static float registerChangeTimeout = 100f;
 }

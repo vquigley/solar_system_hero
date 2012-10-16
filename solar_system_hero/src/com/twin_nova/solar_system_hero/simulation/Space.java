@@ -46,7 +46,7 @@ public class Space {
 	public Date space_date = new Date();
 	
 	private ArrayList<Planet> planets 	= new ArrayList<Planet>();
-	private LinkedList<Ship> ships 		= new LinkedList<Ship>();
+	public LinkedList<Ship> ships 		= new LinkedList<Ship>();
 	private Ship player					= null;
 	private static Space self;
 	private Star sun 					= null;
