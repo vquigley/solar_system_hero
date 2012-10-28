@@ -16,12 +16,6 @@ public class ScoutCockpit extends ShipPart {
 	
 	protected ScoutCockpit(SpaceBody owner) {
 		super(owner, Texture.enemy_scout, new Vector2(0,0), 0);
-		integralPart = true;
-	}
-
-	@Override
-	public int get_health() {
-		return 20;
 	}
 
 	@Override

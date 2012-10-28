@@ -12,19 +12,13 @@ public class HeroCockpit extends ShipPart {
 
 	public HeroCockpit(Ship owner, Vector2 body_offset) {
 		super(owner, Texture.player, body_offset, 0);
-		integralPart = true;
 	}
 
-	private static int health = 100;
 	private static FixtureDef fixture_def = null;
 	private static float part_mass = 1.0f;
 	private static final float friction = 0.5f;
 	private static final float restitution = 0.2f;
 
-	@Override
-	public int get_health() {
-		return health;
-	}
 
 	protected int getSpriteBoundHeight() {
 		// TODO Auto-generated method stub

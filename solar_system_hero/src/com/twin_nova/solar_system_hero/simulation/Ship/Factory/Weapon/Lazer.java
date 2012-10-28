@@ -12,4 +12,9 @@ public class Lazer extends WeaponFire {
 		body.setLinearVelocity(get_force(1000f));
 		super.update();
 	}	
+	
+	@Override
+	public int get_health() {
+		return INFINITE_HEALTH;
+	}
 }

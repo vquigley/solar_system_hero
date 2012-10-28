@@ -1,4 +1,4 @@
-package com.twin_nova.solar_system_hero.simulation;
+ package com.twin_nova.solar_system_hero.simulation;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -10,7 +10,8 @@ import com.twin_nova.utilities.Global;
 import com.twin_nova.utilities.TextureCache.Texture;
 
 public abstract class BodyFixture {
-	
+
+	protected Integer INSTANT_DEATH = Integer.MAX_VALUE;
 	protected BodyFixture(SpaceBody owner,
 						  Texture texture,
 						  Vector2 body_offset, 
@@ -18,7 +19,6 @@ public abstract class BodyFixture {
 		this.setOwner(owner);
 		this.body_offset = body_offset;
 		this.angle_offset = angle_offset;
-		current_health = get_health();
 		
 		FixtureDef fixture_def = get_fixture_def();
 		fixture_def.filter.categoryBits = owner.get_weapon_category();
@@ -113,17 +113,12 @@ public abstract class BodyFixture {
 	}
 	
 	public void apply_damage(int damage) {
-		if ((get_health() != INFINITE_HEALTH) && (current_health > 0)) {
-			
-			//current_health -= damage;
-			
-			if (current_health <= 0)
-			{
-				Space.instance().nuke_fixture.add(this);
-			}
-		}
+		owner.apply_damage(damage);
 	}
 	
+	protected void startDestroy() {		
+	}
+
 	public void register_contact_begin(BodyFixture contact) {
 		apply_damage(contact.get_contact_damage());
 	}
@@ -138,18 +133,12 @@ public abstract class BodyFixture {
 	}
 
 	protected Sprite sprite = null;
-	public abstract int get_health();
 	public abstract FixtureDef get_fixture_def();
 	public abstract float get_mass();
 	
 	protected Vector2 body_offset;
 	protected SpaceBody owner;
 	protected float angle_offset;
-	
-	protected Integer INFINITE_HEALTH = Integer.MIN_VALUE;
-	protected Integer INSTANT_DEATH = Integer.MAX_VALUE;
-	
-	private Integer current_health;
 	
 	private Fixture fixture = null;
 	

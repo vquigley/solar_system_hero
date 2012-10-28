@@ -17,6 +17,7 @@ public class Hero extends Ship {
 	private static float top_torque = 3.0f;
 	private static float impulse = 1.5f;
 	private static float torque = 0.3f;
+	private static int health = 100;
 	
 	private ArrayList<Weapon> weapons_a = new ArrayList<Weapon>();
 			
@@ -39,6 +40,12 @@ public class Hero extends Ship {
 	@Override
 	public ShipPart build_engine() {
 		return null;
+	}
+	
+
+	@Override
+	public int get_health() {
+		return health;
 	}
 
 	@Override

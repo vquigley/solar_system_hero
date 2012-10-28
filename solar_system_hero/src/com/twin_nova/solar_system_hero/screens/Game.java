@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.twin_nova.solar_system_hero.simulation.Hud;
 import com.twin_nova.solar_system_hero.simulation.Space;
+import com.twin_nova.solar_system_hero.simulation.Ship.Factory.Hero.PlayerControl;
 import com.twin_nova.utilities.Global;
 
 public class Game implements Screen {
@@ -73,6 +74,12 @@ public class Game implements Screen {
 
 	@Override
 	public void render(float delta) {
+		
+		if (isKeyPressed(Space.instance().player().control(), Input.Keys.U))
+		{
+			debug_view = (debug_view == false);
+		}
+		
 		Game.delta = delta;
 
 		env_cam.update();
@@ -132,13 +139,8 @@ public class Game implements Screen {
 			env_camera_zoom -= env_zoom_increment;
 		}
 
-		if (space.player() == null) {
+		if (space.end_game != false) {
 			controller.setScreen(new EndGame(controller));
-		}
-		
-		if (isKeyPressed(Input.Keys.U))
-		{
-			debug_view = (debug_view == false);
 		}
 		
 		debugCamera();
@@ -162,23 +164,36 @@ public class Game implements Screen {
 		space.resize(arg0, arg1);
 	}
 	
-	public static boolean isKeyPressed(Integer key)
+	public static boolean isKeyPressed(Object object, Integer key)
 	{
 		boolean keyPressed = false;
 		
-		Long lastPressed = timeLastKeyPressed.get(key);
-		
-		if ((Gdx.input.isKeyPressed(key)) &&
-			((lastPressed == null) ||
-			 ((Space.instance().get_space_time() - lastPressed) > registerChangeTimeout)))
+		// If it is the human user then check if the control is pressed, 
+		// if not then assume it is pressed because the AI has asked for it.
+		if (((object instanceof PlayerControl) == false) || (Gdx.input.isKeyPressed(key)))
 		{
-			keyPressed = true;
-			timeLastKeyPressed.put(key, Space.instance().get_space_time());
+			Hashtable<Integer, Long> timeLastKeyPressed = timeLastKeyPressedForObject.get(object);
+			
+			if (timeLastKeyPressed == null)
+			{
+				timeLastKeyPressed = new Hashtable<Integer, Long>();
+				timeLastKeyPressedForObject.put(object, timeLastKeyPressed);
+			}
+			
+			Long lastPressed = timeLastKeyPressed.get(key);
+			
+			if ((lastPressed == null) ||
+				((Space.instance().get_space_time() - lastPressed) > registerChangeTimeout))
+			{
+				keyPressed = true;
+				timeLastKeyPressed.put(key, Space.instance().get_space_time());
+			}			
 		}
+			
 		
 		return keyPressed;
 	}
 	
-	static Hashtable<Integer, Long> timeLastKeyPressed = new Hashtable<Integer, Long>(); 
+	static Hashtable<Object, Hashtable<Integer, Long>> timeLastKeyPressedForObject = new Hashtable<Object, Hashtable<Integer, Long>>(); 
 	static float registerChangeTimeout = 100f;
 }

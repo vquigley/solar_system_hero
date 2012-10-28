@@ -1,5 +1,7 @@
 package com.twin_nova.solar_system_hero.simulation.Ship.Factory.enemy.scout;
 
+import com.badlogic.gdx.Input;
+import com.twin_nova.solar_system_hero.screens.Game;
 import com.twin_nova.solar_system_hero.simulation.Space;
 import com.twin_nova.solar_system_hero.simulation.SpaceBody;
 import com.twin_nova.solar_system_hero.simulation.Ship.Factory.ShipControl;
@@ -25,12 +27,25 @@ public class ScoutAI extends ShipControl {
 			
 				if (angle < Global.to_radians(10))
 				{
-					ship.fire_a();
-					ship.forward();
+					if (Game.isKeyPressed(ship, Input.Keys.W))
+					{
+						ship.forward();
+					}
+					
+					
+					
+					if ((ship.distanceFrom(Space.instance().player()) < Global.ScaleDistance(10)) && 
+						(Game.isKeyPressed(ship, Input.Keys.CONTROL_LEFT)))
+					{
+						ship.fire_a();
+					}
 				}
 				else
 				{
-					ship.slowDown();
+					if (Game.isKeyPressed(ship,  Input.Keys.S))
+					{
+						ship.slowDown();
+					}
 				}
 				
 				break;

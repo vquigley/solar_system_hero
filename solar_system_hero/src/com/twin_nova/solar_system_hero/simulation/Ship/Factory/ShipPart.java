@@ -10,6 +10,4 @@ public abstract class ShipPart extends BodyFixture {
 	protected ShipPart(SpaceBody owner, Texture texture, Vector2 body_offset, float angle_offset) {
 		super(owner, texture, body_offset, angle_offset);
 	}
-	
-	public boolean integralPart = false;
 }

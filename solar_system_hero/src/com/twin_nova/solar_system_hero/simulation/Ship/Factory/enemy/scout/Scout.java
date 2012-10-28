@@ -89,4 +89,10 @@ public class Scout extends Ship {
 	public float top_torque() {
 		return top_torque;
 	}
+
+	@Override
+	public int get_health() {
+		// TODO Auto-generated method stub
+		return 20;
+	}
 }

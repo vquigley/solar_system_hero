@@ -9,18 +9,7 @@ public class Score {
 	
 	private int value = INITIAL_SCORE;
 	private int multiplier = DEFAULT_MULTIPLIER;
-
-	private Score() {
-		// Do nothing.
-	}
 	
-	public static Score Instance() {
-		if (instance == null) {
-			instance = new Score();
-		}
-		
-		return instance;		
-	}
 	
 	public int getValue() {return value;}
 	

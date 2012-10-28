@@ -15,11 +15,6 @@ public class StarFixture extends BodyFixture {
 			  new Vector2(0,0), 
 			  0f);
 	}
-
-	@Override
-	public int get_health() {
-		return INFINITE_HEALTH;
-	}
 	
 	@Override
 	public float getRadius() {

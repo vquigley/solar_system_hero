@@ -74,4 +74,11 @@ public class EnemyPortal extends SpaceBody {
 			exiting_ships.add(ship);
 		}
 	}
+
+
+	@Override
+	public int get_health() {
+		// TODO Auto-generated method stub
+		return INFINITE_HEALTH;
+	}
 }

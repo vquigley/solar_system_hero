@@ -27,6 +27,7 @@ public abstract class Ship extends SpaceBody {
 	}
 	
 	public void update() {
+		
 		super.update();
 		ship_control.update(this);
 		

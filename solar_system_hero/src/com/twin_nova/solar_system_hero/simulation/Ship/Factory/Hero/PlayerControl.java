@@ -14,30 +14,30 @@ public class PlayerControl extends ShipControl {
 		handle_weapons(ship);
 	}
 	
-	private static void handle_weapons(Ship ship) {
+	private void handle_weapons(Ship ship) {
 		// Take care of firing system
-		if (Game.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+		if (Game.isKeyPressed(this, Input.Keys.CONTROL_LEFT)) {
 			ship.fire_a();
 		}
 		
-		if (Game.isKeyPressed(Input.Keys.ALT_LEFT)) {
+		if (Game.isKeyPressed(this, Input.Keys.ALT_LEFT)) {
 			ship.fire_b();
 		}
 	}
 
 	private void handle_thrust(Ship ship) {
 		
-		if (Game.isKeyPressed(Input.Keys.W)) {
+		if (Game.isKeyPressed(this, Input.Keys.W)) {
 			ship.forward();
 		}		
 	}
 
 	private void handle_turn(Ship ship) {
-		if (Game.isKeyPressed(Input.Keys.A)) {
+		if (Game.isKeyPressed(this, Input.Keys.A)) {
 			ship.turnLeft();
 		}
 			
-		if (Game.isKeyPressed(Input.Keys.D)) {
+		if (Game.isKeyPressed(this, Input.Keys.D)) {
 			ship.turnRight();
 		}
 	}

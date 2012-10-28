@@ -15,10 +15,6 @@ public class LazerFixture extends WeaponFixture {
 		super(owner, Texture.blue_lazer, new Vector2(0,0), 0);
 	}
 
-	@Override
-	public int get_health() {
-		return INFINITE_HEALTH;
-	}
 
 	@Override
 	public FixtureDef get_fixture_def() {

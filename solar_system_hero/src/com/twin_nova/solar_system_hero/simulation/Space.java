@@ -52,13 +52,13 @@ public class Space {
 	private Star sun 					= null;
 	public  Boundary boundary				= null;
 	
-	boolean end_game = false;
+	public boolean end_game = false;
 	
 	private ArrayList<EnemyPortal> portals = new ArrayList<EnemyPortal>();
 	public void add_ship(Ship ship) { ships.add(ship);}
 
 	ParticleEffect particleEffect = new ParticleEffect();
-	public ArrayList<BodyFixture>  nuke_fixture = new ArrayList<BodyFixture>();
+	
 	
 	public World World() {
 		return world;
@@ -85,11 +85,16 @@ public class Space {
 		return self;
 	}
 	
+	
+	Score score;
+	
 	private Space() {
 		self = this;
 		begin_date = new Date();
 		// Create stars.
 		float stars_per_meter = 0.005f;
+		
+		score = new Score();
 		
 		//sprite.setRotation(start_direction);
 		stars = new Sprite[(int)(stars_per_meter * half_size_x * 2 * half_size_y * 2)];
@@ -126,7 +131,7 @@ public class Space {
 		planets.add(new Earth());
 		planets.add(new Mars());
 		
-		player = ShipBuilder.build_hero(new Vector2(5, 5), 0);
+		player = ShipBuilder.build_hero(new Vector2(Global.ScaleDistance(10), Global.ScaleDistance(10)), 0);
 		
 		world.setContactListener(contact_listener);
 		world.setContactFilter(contact_filter);
@@ -179,43 +184,24 @@ public class Space {
 	}
 	
 	private void nuke()
-	{
-		for (int i = nuke_fixture.size() - 1; i >= 0; --i)
-		{
-			BodyFixture f = nuke_fixture.get(i);
-
-			if (f instanceof ShipPart)
-			{
-				ShipPart part = (ShipPart)f;
-				
-				if (part.integralPart)
-				{
-					nuke_list.add(part.getOwner());
-				}
-			}
-			
-			f.getOwner().destroyFixture(f);
-		}
-		
+	{		
 		for (int i = nuke_list.size() - 1; i >= 0; --i)
 		{
 			SpaceBody body = nuke_list.get(i);
 
 			if (body == player) {
 				end_game = true;
-
-				particleEffect.start();
 			}
 			else if (body instanceof Ship)
 			{
 				Ship ship = (Ship)body;
 				ships.remove(ship);
-				Score.Instance().increaseScore((ship).getKillValue());
+				score.increaseScore((ship).getKillValue());
 			}
 			
 			body.destroy();
 		}
-		nuke_fixture.clear();
+		
 		nuke_list.clear();
 	}
 	
@@ -282,5 +268,9 @@ public class Space {
 		}
 		
 		return time;
+	}
+
+	public Score getScore() {
+		return score;
 	}
 }

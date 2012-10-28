@@ -17,11 +17,6 @@ public class LazerBank extends Weapon {
 		return new Lazer(this);
 	}
 
-	@Override
-	public int get_health() {
-		return health;
-	}
-
 
 	@Override
 	public int fire_rate() {

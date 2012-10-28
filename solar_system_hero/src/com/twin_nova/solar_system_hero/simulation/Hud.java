@@ -18,7 +18,7 @@ public class Hud {
 	
 	private void setScore() {
 		
-		score = new StringBuild(new Vector2(-Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight() / 2 - 50), String.format("Score  %s", Score.Instance().getValue()));
+		score = new StringBuild(new Vector2(-Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight() / 2 - 50), String.format("Score  %s", Space.instance().getScore().getValue()));
 	}
 
 	public static Hud init() {

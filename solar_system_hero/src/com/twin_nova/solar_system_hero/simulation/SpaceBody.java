@@ -17,6 +17,7 @@ public abstract class SpaceBody {
 	protected SpaceBody(Vector2 start_coordinates, float start_direction) {
 		BodyDef bd = get_body_definition(start_coordinates, start_direction);
 		body = Space.instance().World().createBody(bd);
+		current_health = get_health();
 	}
 	
 	public float Scale(float input) {
@@ -61,10 +62,14 @@ public abstract class SpaceBody {
 	}
 	
 	public float get_speed() {
+		return getScalar(body.getLinearVelocity());
+	}
+	
+	public float getScalar(Vector2 vec) {
 		// Use Pythagoras' theorem to determine the speed.
 		// a² + b² = c²
-		float a = body.getLinearVelocity().x;
-		float b = body.getLinearVelocity().y;
+		float a = vec.x;
+		float b = vec.y;
 		float c = (float)Math.sqrt((a*a)+(b*b));
 		
 		return c;
@@ -81,6 +86,11 @@ public abstract class SpaceBody {
 	public float getScaleFactor() {
 		return 1f;
 	}
+	
+	public float distanceFrom(SpaceBody other)
+	{
+		return getScalar(this.body.getPosition().sub(other.body.getPosition()));
+	}
 
 	public void destroyFixture(BodyFixture fixture) {
 		Iterator<Fixture> f_it = body.getFixtureList().iterator();
@@ -94,5 +104,30 @@ public abstract class SpaceBody {
 			}
 			
 		}		
+	}
+	
+
+	
+	public abstract int get_health();
+	protected Integer INFINITE_HEALTH = Integer.MIN_VALUE;
+	protected Integer current_health;
+
+	public void startDestroy()
+	{
+		Space.instance().nuke_list.add(this);
+	}
+	
+	public void apply_damage(int damage) {
+
+		if ((get_health() != INFINITE_HEALTH) && (current_health > 0)) {
+			
+			current_health -= damage;
+			
+			if (current_health <= 0)
+			{
+				startDestroy();
+				//Space.instance().nuke_fixture.add(this);
+			}
+		}
 	}
 }

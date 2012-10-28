@@ -75,4 +75,9 @@ public class OrbitingObject extends SpaceBody {
 
 	private Vector2[] orbit_points = null;
 	private static int number_of_steps = 3600;
+	@Override
+	public int get_health() {
+		// TODO Auto-generated method stub
+		return INFINITE_HEALTH;
+	}
 }

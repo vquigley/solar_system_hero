@@ -19,11 +19,6 @@ public abstract class PlanetFixture extends BodyFixture {
 	}
 
 	@Override
-	public int get_health() {
-		return INFINITE_HEALTH;
-	}
-
-	@Override
 	public FixtureDef get_fixture_def() {
 		CircleShape shape = new CircleShape();
 		shape.setRadius(getRadius() * Planet.objectSizeScale);

@@ -43,12 +43,7 @@ public class PortalFixture extends BodyFixture {
 		
 		particleEffect.start();
 	}
-
-	@Override
-	public int get_health() {
-		return INFINITE_HEALTH;
-	}
-
+	
 	@Override
 	public FixtureDef get_fixture_def() {
 		PolygonShape shape = new PolygonShape();

@@ -3,7 +3,6 @@ package com.twin_nova.solar_system_hero.simulation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.twin_nova.solar_system_hero.simulation.Planet.GravityWell;
-import com.twin_nova.solar_system_hero.simulation.Planet.Planet;
 import com.twin_nova.utilities.Global;
 
 public class Star extends SpaceBody{
@@ -37,5 +36,11 @@ public class Star extends SpaceBody{
 	public float getScaleFactor()
 	{
 		return 1;
+	}
+
+	@Override
+	public int get_health() {
+		// TODO Auto-generated method stub
+		return INFINITE_HEALTH;
 	}
 }
