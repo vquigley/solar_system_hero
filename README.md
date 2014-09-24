@@ -1,7 +1,7 @@
 solar_system_hero
 =================
 
-http://www.solarsystemscope.com/ is an excellent view of the solar system, if I could make it look a bit like this then I would have a hard on.
+http://www.solarsystemscope.com/ is an excellent view of the solar system, if I could make it look a bit like this then I would have a good time.
 
 User stories for arcade version...
 
